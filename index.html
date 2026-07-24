@@ -11,6 +11,7 @@
     <title>Faith Journal</title>
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/WhatsApp%20Image%202026-06-19%20at%2010.59.51.png">
     <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/WhatsApp%20Image%202026-06-19%20at%2010.59.51.png">
+    <link rel="manifest" href="manifest.json">
     <style>
         :root {
             --bg: #fdfbf7;
@@ -1832,51 +1833,12 @@
             }
 
             // ============ PWA & INSTALL ============
-            function generateManifest() {
-                return {
-                    name: APP_NAME,
-                    short_name: APP_NAME,
-                    description: 'A personal faith journal for prayer, Bible study, reflection, and spiritual growth.',
-                    start_url: location.href.split('?')[0],
-                    display: 'standalone',
-                    background_color: '#fdfbf7',
-                    theme_color: '#1a365d',
-                    orientation: 'any',
-                    icons: [
-                        { src: LOGO_URL, sizes: '192x192', type: 'image/png', purpose: 'any maskable' },
-                        { src: LOGO_URL, sizes: '512x512', type: 'image/png', purpose: 'any maskable' },
-                    ],
-                };
-            }
-
             function setupPWA() {
-                // Create manifest link
-                const manifestBlob = new Blob([JSON.stringify(generateManifest())], { type: 'application/json' });
-                const manifestUrl = URL.createObjectURL(manifestBlob);
-                const linkEl = document.createElement('link');
-                linkEl.rel = 'manifest';
-                linkEl.href = manifestUrl;
-                document.head.appendChild(linkEl);
-
-                // Register service worker via blob
+                // Register service worker from static file
                 if ('serviceWorker' in navigator && location.protocol === 'https:') {
-                    const swCode = `
-              const CACHE_NAME = 'faith-journal-v1';
-              const urlsToCache = ['/'];
-              self.addEventListener('install', event => {
-                event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache)));
-              });
-              self.addEventListener('fetch', event => {
-                event.respondWith(
-                  caches.match(event.request).then(response => response || fetch(event.request))
-                );
-              });
-            `;
-                    const swBlob = new Blob([swCode], { type: 'application/javascript' });
-                    const swUrl = URL.createObjectURL(swBlob);
-                    navigator.serviceWorker.register(swUrl).catch(() => {
-                        // Service worker registration may fail from blob URL; that's OK for MVP
-                    });
+                    navigator.serviceWorker.register('sw.js')
+                        .then(() => console.log('Service Worker registered'))
+                        .catch(err => console.warn('SW registration failed:', err));
                 }
 
                 // Listen for install prompt
