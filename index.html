@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#1a365d">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Faith Journal">
-    <meta name="description" content="A personal faith journal for prayer, Bible study, reflection, and spiritual growth.">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#1a365d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Faith Journal" />
+    <meta name="description" content="A personal faith journal for prayer, Bible study, reflection, and spiritual growth." />
     <title>Faith Journal</title>
-    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/WhatsApp%20Image%202026-06-19%20at%2010.59.51.png">
-    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/WhatsApp%20Image%202026-06-19%20at%2010.59.51.png">
-    <link rel="manifest" href="manifest.json">
+
+    <!-- Icons & Manifest -->
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/WhatsApp%20Image%202026-06-19%20at%2010.59.51.png" />
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/WhatsApp%20Image%202026-06-19%20at%2010.59.51.png" />
+    <link rel="manifest" href="manifest.json" />
+
+    <!-- Lucide Icons (modern icon library) -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.344.0/dist/umd/lucide.min.js" defer></script>
+
     <style>
+        /* ===== CSS VARIABLES ===== */
         :root {
             --bg: #fdfbf7;
             --bg2: #f5f0e8;
@@ -27,7 +34,7 @@
             --card2: #fefcf8;
             --border: #e2d9c8;
             --shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-            --shadow2: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --shadow2: 0 4px 20px rgba(0, 0, 0, 0.10);
             --radius: 14px;
             --radius2: 10px;
             --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -38,7 +45,15 @@
             --info: #2b6cb0;
             --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
             --font-heading: Georgia, 'Times New Roman', serif;
+            --safe-top: env(safe-area-inset-top, 0px);
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
+            --safe-left: env(safe-area-inset-left, 0px);
+            --safe-right: env(safe-area-inset-right, 0px);
+            --glass-bg: rgba(255, 255, 255, 0.55);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
         }
+
         .dark {
             --bg: #1a1d23;
             --bg2: #22262e;
@@ -52,23 +67,31 @@
             --card: #252932;
             --card2: #2a2e38;
             --border: #3a3f4b;
-            --shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
-            --shadow2: 0 4px 20px rgba(0, 0, 0, 0.4);
+            --shadow: 0 2px 12px rgba(0, 0, 0, 0.30);
+            --shadow2: 0 4px 20px rgba(0, 0, 0, 0.40);
             --nav-bg: #1e2129;
             --accent-warm: #2a2e38;
             --danger: #fc8181;
             --success: #68d391;
             --info: #63b3ed;
+            --glass-bg: rgba(30, 33, 41, 0.70);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
         }
+
+        /* ===== RESET & BASE ===== */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
+
         html {
             scroll-behavior: smooth;
             font-size: 16px;
+            -webkit-text-size-adjust: 100%;
         }
+
         body {
             font-family: var(--font);
             background: var(--bg);
@@ -76,26 +99,107 @@
             line-height: 1.65;
             transition: background var(--transition), color var(--transition);
             min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             flex-direction: column;
             padding-bottom: 80px;
+            padding-top: var(--safe-top);
+            padding-left: var(--safe-left);
+            padding-right: var(--safe-right);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
+
         ::selection {
             background: var(--gold2);
             color: #1a1d23;
         }
+
         :focus-visible {
             outline: 3px solid var(--gold2);
             outline-offset: 3px;
             border-radius: 4px;
         }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
         .container {
-            max-width: 900px;
+            max-width: 960px;
             margin: 0 auto;
             padding: 16px 20px;
             width: 100%;
+            flex: 1;
         }
-        /* Navigation */
+
+        /* ===== SPLASH SCREEN ===== */
+        #splashScreen {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: var(--bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 700ms ease, visibility 700ms ease;
+            padding: 24px;
+            text-align: center;
+        }
+
+        #splashScreen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        #splashScreen .splash-logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--gold2);
+            margin-bottom: 20px;
+            box-shadow: 0 8px 40px rgba(183, 147, 90, 0.30);
+            animation: splashPulse 2.4s ease-in-out infinite;
+        }
+
+        @keyframes splashPulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.04);
+            }
+        }
+
+        #splashScreen h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            color: var(--primary);
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        #splashScreen .splash-version {
+            font-size: 0.95rem;
+            color: var(--text2);
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        #splashScreen .splash-sub {
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: var(--text2);
+            opacity: 0.7;
+        }
+
+        /* ===== NAVIGATION ===== */
         .nav {
             background: var(--nav-bg);
             border-bottom: 1px solid var(--border);
@@ -108,9 +212,15 @@
             align-items: center;
             justify-content: space-between;
             padding: 8px 16px;
-            flex-wrap: wrap;
+            padding-top: calc(8px + var(--safe-top));
             gap: 6px;
+            flex-wrap: wrap;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            background: var(--glass-bg);
+            border-bottom: 1px solid var(--glass-border);
         }
+
         .nav-logo {
             display: flex;
             align-items: center;
@@ -119,10 +229,12 @@
             text-decoration: none;
             color: var(--primary);
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
             font-family: var(--font-heading);
             letter-spacing: 0.5px;
+            flex-shrink: 0;
         }
+
         .nav-logo img {
             width: 36px;
             height: 36px;
@@ -131,80 +243,96 @@
             border: 2px solid var(--gold2);
             transition: transform var(--transition);
         }
+
         .nav-logo:hover img {
             transform: scale(1.08);
         }
+
         .nav-links {
             display: flex;
-            gap: 6px;
+            gap: 4px;
             flex-wrap: wrap;
             align-items: center;
         }
+
         .nav-links button,
         .nav-links a {
             background: transparent;
             border: 1px solid transparent;
             color: var(--text2);
-            padding: 7px 13px;
+            padding: 7px 12px;
             border-radius: 20px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: clamp(0.72rem, 1.6vw, 0.9rem);
             font-family: var(--font);
             transition: all var(--transition);
             white-space: nowrap;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
+            min-height: 44px;
+            min-width: 44px;
+            justify-content: center;
         }
+
         .nav-links button:hover,
         .nav-links a:hover {
             background: var(--accent-warm);
             color: var(--primary);
             border-color: var(--border);
         }
+
         .nav-links button.active {
             background: var(--primary);
             color: #fff;
             border-color: var(--primary);
         }
+
         .dark .nav-links button.active {
             background: var(--gold2);
             color: #1a1d23;
             border-color: var(--gold2);
         }
+
         .nav-actions {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             align-items: center;
+            flex-shrink: 0;
         }
+
         .icon-btn {
             background: transparent;
             border: 1px solid var(--border);
             color: var(--text2);
-            width: 38px;
-            height: 38px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 1.1rem;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all var(--transition);
             position: relative;
+            min-width: 44px;
+            min-height: 44px;
         }
+
         .icon-btn:hover {
             background: var(--accent-warm);
             color: var(--primary);
             border-color: var(--gold2);
         }
+
         .icon-btn svg {
-            width: 18px;
-            height: 18px;
-            fill: none;
+            width: 20px;
+            height: 20px;
             stroke: currentColor;
             stroke-width: 2;
+            fill: none;
         }
+
         .install-btn {
             background: var(--gold2);
             color: #1a1d23;
@@ -214,22 +342,26 @@
             cursor: pointer;
             font-weight: 600;
             font-family: var(--font);
-            font-size: 0.85rem;
+            font-size: clamp(0.75rem, 1.4vw, 0.85rem);
             display: flex;
             align-items: center;
             gap: 6px;
             transition: all var(--transition);
             white-space: nowrap;
+            min-height: 44px;
         }
+
         .install-btn:hover {
             background: var(--gold3);
             transform: translateY(-1px);
             box-shadow: var(--shadow2);
         }
+
         .install-btn.hidden {
             display: none;
         }
-        /* Cards */
+
+        /* ===== CARDS ===== */
         .card {
             background: var(--card);
             border: 1px solid var(--border);
@@ -240,87 +372,140 @@
             transition: all var(--transition);
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
         }
+
         .card:hover {
             box-shadow: var(--shadow2);
             transform: translateY(-2px);
         }
+
         .card h2,
         .card h3 {
             font-family: var(--font-heading);
             color: var(--primary);
             margin-bottom: 10px;
             letter-spacing: 0.3px;
-        }
-        .card h2 {
-            font-size: 1.4rem;
             display: flex;
             align-items: center;
             gap: 8px;
         }
-        .card h3 {
-            font-size: 1.1rem;
+
+        .card h2 {
+            font-size: clamp(1.2rem, 3vw, 1.4rem);
         }
-        /* Buttons */
+
+        .card h3 {
+            font-size: clamp(1rem, 2.2vw, 1.1rem);
+        }
+
+        .card-header-img {
+            width: 100%;
+            border-radius: var(--radius2);
+            margin-bottom: 16px;
+            overflow: hidden;
+            background: var(--accent-warm);
+        }
+
+        .card-header-img img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 6;
+            object-fit: cover;
+            display: block;
+            transition: transform var(--transition);
+        }
+
+        .card-header-img img:hover {
+            transform: scale(1.01);
+        }
+
+        /* ===== BUTTONS ===== */
         .btn {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 7px;
             padding: 10px 20px;
             border-radius: 25px;
             font-family: var(--font);
-            font-size: 0.95rem;
+            font-size: clamp(0.85rem, 1.6vw, 0.95rem);
             cursor: pointer;
             border: none;
             font-weight: 600;
             transition: all var(--transition);
             letter-spacing: 0.2px;
             text-decoration: none;
+            min-height: 44px;
+            min-width: 44px;
         }
+
         .btn-primary {
             background: var(--primary);
             color: #fff;
-            box-shadow: 0 2px 8px rgba(26, 54, 93, 0.3);
+            box-shadow: 0 2px 8px rgba(26, 54, 93, 0.30);
         }
+
         .btn-primary:hover {
             background: var(--primary2);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(26, 54, 93, 0.4);
+            box-shadow: 0 6px 20px rgba(26, 54, 93, 0.40);
         }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
         .btn-gold {
             background: var(--gold2);
             color: #1a1d23;
-            box-shadow: 0 2px 8px rgba(183, 147, 90, 0.3);
+            box-shadow: 0 2px 8px rgba(183, 147, 90, 0.30);
         }
+
         .btn-gold:hover {
             background: var(--gold3);
             transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(183, 147, 90, 0.4);
+            box-shadow: 0 6px 18px rgba(183, 147, 90, 0.40);
         }
+
+        .btn-gold:active {
+            transform: translateY(0);
+        }
+
         .btn-outline {
             background: transparent;
             border: 2px solid var(--primary);
             color: var(--primary);
         }
+
         .btn-outline:hover {
             background: var(--primary);
             color: #fff;
         }
+
         .btn-sm {
             padding: 6px 14px;
-            font-size: 0.82rem;
+            font-size: clamp(0.72rem, 1.3vw, 0.82rem);
             border-radius: 18px;
+            min-height: 36px;
+            min-width: 36px;
         }
+
         .btn-danger {
             background: var(--danger);
             color: #fff;
         }
+
         .btn-danger:hover {
             opacity: 0.85;
+            transform: translateY(-1px);
         }
-        /* Forms */
+
+        /* ===== FORMS ===== */
         input[type="text"],
         input[type="search"],
+        input[type="number"],
         textarea,
         select {
             width: 100%;
@@ -328,13 +513,16 @@
             border: 1px solid var(--border);
             border-radius: var(--radius2);
             font-family: var(--font);
-            font-size: 0.95rem;
+            font-size: clamp(0.9rem, 1.4vw, 0.95rem);
             background: var(--card2);
             color: var(--text);
             transition: all var(--transition);
             resize: vertical;
-            min-height: 44px;
+            min-height: 48px;
+            -webkit-appearance: none;
+            appearance: none;
         }
+
         input:focus,
         textarea:focus,
         select:focus {
@@ -342,22 +530,47 @@
             border-color: var(--gold2);
             box-shadow: 0 0 0 3px rgba(183, 147, 90, 0.15);
         }
+
         textarea {
             min-height: 100px;
         }
+
         label {
             font-weight: 600;
             display: block;
             margin-bottom: 5px;
             color: var(--text);
-            font-size: 0.9rem;
+            font-size: clamp(0.85rem, 1.3vw, 0.9rem);
         }
-        /* Hero */
+
+        /* ===== HERO ===== */
         .hero {
             text-align: center;
-            padding: 40px 20px 30px;
+            padding: 30px 20px 20px;
             position: relative;
         }
+
+        .hero-banner {
+            width: 100%;
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-bottom: 22px;
+            box-shadow: var(--shadow);
+        }
+
+        .hero-banner img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 5;
+            object-fit: cover;
+            display: block;
+            transition: transform var(--transition);
+        }
+
+        .hero-banner img:hover {
+            transform: scale(1.01);
+        }
+
         .hero-logo {
             width: 90px;
             height: 90px;
@@ -368,6 +581,7 @@
             animation: float 3s ease-in-out infinite;
             box-shadow: 0 8px 30px rgba(183, 147, 90, 0.25);
         }
+
         @keyframes float {
             0%,
             100% {
@@ -377,20 +591,23 @@
                 transform: translateY(-10px);
             }
         }
+
         .hero h1 {
             font-family: var(--font-heading);
-            font-size: 2.2rem;
+            font-size: clamp(1.6rem, 4.5vw, 2.4rem);
             color: var(--primary);
             letter-spacing: 0.5px;
             margin-bottom: 8px;
         }
+
         .hero p {
             color: var(--text2);
             max-width: 550px;
             margin: 0 auto 20px;
-            font-size: 1.05rem;
+            font-size: clamp(0.95rem, 1.6vw, 1.05rem);
         }
-        /* Progress bar */
+
+        /* ===== PROGRESS ===== */
         .progress-bar {
             background: var(--border);
             border-radius: 10px;
@@ -398,6 +615,7 @@
             overflow: hidden;
             margin: 8px 0 4px;
         }
+
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--gold2), var(--gold3));
@@ -405,7 +623,8 @@
             transition: width 0.6s ease;
             min-width: 2%;
         }
-        /* Tags */
+
+        /* ===== TAGS ===== */
         .tag {
             display: inline-block;
             padding: 5px 12px;
@@ -419,15 +638,18 @@
             background: var(--accent-warm);
             color: var(--text2);
         }
+
         .tag.selected {
             background: var(--gold2);
             color: #1a1d23;
             border-color: var(--gold2);
         }
+
         .tag:hover {
             border-color: var(--gold2);
         }
-        /* Habit row */
+
+        /* ===== HABIT ROW ===== */
         .habit-row {
             display: flex;
             align-items: center;
@@ -439,14 +661,17 @@
             transition: all var(--transition);
             gap: 10px;
             flex-wrap: wrap;
+            min-height: 56px;
         }
+
         .habit-row:hover {
             background: var(--card2);
             box-shadow: var(--shadow);
         }
+
         .check-circle {
-            width: 32px;
-            height: 32px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             border: 2px solid var(--border);
             cursor: pointer;
@@ -455,13 +680,17 @@
             justify-content: center;
             transition: all var(--transition);
             flex-shrink: 0;
+            min-width: 40px;
+            min-height: 40px;
         }
+
         .check-circle.checked {
             background: var(--success);
             border-color: var(--success);
             color: #fff;
             animation: popIn 0.4s ease;
         }
+
         @keyframes popIn {
             0% {
                 transform: scale(0.7);
@@ -473,28 +702,33 @@
                 transform: scale(1);
             }
         }
+
         .check-circle svg {
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             stroke: #fff;
             stroke-width: 3;
             fill: none;
         }
-        /* Modal */
+
+        /* ===== MODAL ===== */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.60);
             z-index: 200;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
             animation: fadeIn 0.3s ease;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
         }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -503,6 +737,7 @@
                 opacity: 1;
             }
         }
+
         .modal {
             background: var(--card);
             border-radius: var(--radius);
@@ -513,12 +748,15 @@
             max-height: 85vh;
             overflow-y: auto;
             position: relative;
+            border: 1px solid var(--border);
         }
+
         .modal h3 {
             font-family: var(--font-heading);
             color: var(--primary);
         }
-        /* Cookie banner */
+
+        /* ===== COOKIE BANNER ===== */
         .cookie-banner {
             position: fixed;
             bottom: 20px;
@@ -537,7 +775,12 @@
             max-width: 600px;
             width: calc(100% - 30px);
             animation: slideUp 0.5s ease;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
         }
+
         @keyframes slideUp {
             from {
                 transform: translateX(-50%) translateY(100px);
@@ -548,21 +791,25 @@
                 opacity: 1;
             }
         }
+
         .cookie-banner p {
             flex: 1;
             min-width: 200px;
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 1.2vw, 0.9rem);
             color: var(--text2);
         }
-        /* Tabs */
+
+        /* ===== TABS ===== */
         .tab-content {
             display: none;
             animation: fadeIn 0.4s ease;
         }
+
         .tab-content.active {
             display: block;
         }
-        /* Quiz */
+
+        /* ===== QUIZ ===== */
         .quiz-option {
             display: block;
             width: 100%;
@@ -574,30 +821,37 @@
             background: var(--card2);
             cursor: pointer;
             font-family: var(--font);
-            font-size: 0.95rem;
+            font-size: clamp(0.9rem, 1.3vw, 0.95rem);
             transition: all var(--transition);
             color: var(--text);
+            min-height: 48px;
         }
+
         .quiz-option:hover {
             border-color: var(--gold2);
             background: var(--accent-warm);
         }
+
         .quiz-option.correct {
             border-color: var(--success) !important;
             background: #e6ffed !important;
             animation: popIn 0.4s ease;
         }
+
         .dark .quiz-option.correct {
             background: #1a3c2a !important;
         }
+
         .quiz-option.wrong {
             border-color: var(--danger) !important;
             background: #fff5f5 !important;
             animation: shake 0.5s ease;
         }
+
         .dark .quiz-option.wrong {
             background: #3c1a1a !important;
         }
+
         @keyframes shake {
             0%,
             100% {
@@ -610,12 +864,14 @@
                 transform: translateX(8px);
             }
         }
-        /* Stats grid */
+
+        /* ===== STATS ===== */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 12px;
         }
+
         .stat-card {
             background: var(--accent-warm);
             border-radius: var(--radius2);
@@ -624,42 +880,70 @@
             border: 1px solid var(--border);
             transition: all var(--transition);
         }
+
         .stat-card:hover {
             box-shadow: var(--shadow2);
             transform: translateY(-2px);
         }
+
         .stat-number {
-            font-size: 2rem;
+            font-size: clamp(1.6rem, 3.5vw, 2rem);
             font-weight: 700;
             color: var(--gold2);
             font-family: var(--font-heading);
         }
+
         .stat-label {
-            font-size: 0.8rem;
+            font-size: clamp(0.7rem, 1.1vw, 0.8rem);
             color: var(--text2);
             margin-top: 4px;
         }
-        /* Footer */
+
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            text-align: center;
+            padding: 30px 16px;
+        }
+
+        .empty-state img {
+            max-width: 200px;
+            width: 100%;
+            height: auto;
+            margin: 0 auto 16px;
+            opacity: 0.7;
+        }
+
+        .empty-state p {
+            color: var(--text2);
+            font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+            font-weight: 500;
+        }
+
+        /* ===== FOOTER ===== */
         .site-footer {
             text-align: center;
             padding: 24px 20px;
+            padding-bottom: calc(24px + var(--safe-bottom));
             border-top: 1px solid var(--border);
             margin-top: 30px;
-            font-size: 0.85rem;
+            font-size: clamp(0.75rem, 1.1vw, 0.85rem);
             color: var(--text2);
             background: var(--bg2);
             border-radius: var(--radius) var(--radius) 0 0;
         }
+
         .site-footer a {
             color: var(--gold2);
             text-decoration: none;
             font-weight: 600;
             transition: color var(--transition);
         }
+
         .site-footer a:hover {
             color: var(--gold3);
             text-decoration: underline;
         }
+
         .footer-links {
             display: flex;
             gap: 12px;
@@ -667,54 +951,65 @@
             flex-wrap: wrap;
             margin: 10px 0;
         }
+
         .footer-links button {
             background: none;
             border: none;
             color: var(--text2);
             cursor: pointer;
             font-family: var(--font);
-            font-size: 0.82rem;
+            font-size: clamp(0.7rem, 1vw, 0.82rem);
             text-decoration: underline;
             transition: color var(--transition);
+            min-height: 44px;
+            padding: 4px 8px;
         }
+
         .footer-links button:hover {
             color: var(--gold2);
         }
-        /* Section hidden */
-        .section-hidden {
-            display: none;
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 20px;
+            background: var(--primary);
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 25px;
+            z-index: 400;
+            font-size: clamp(0.8rem, 1.2vw, 0.9rem);
+            box-shadow: var(--shadow2);
+            animation: slideUp 0.4s ease, fadeOut 0.4s ease 2.8s forwards;
+            font-family: var(--font);
+            max-width: 90vw;
         }
-        /* Pulse */
-        @keyframes pulse {
-            0%,
-            100% {
-                opacity: 1;
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: translateY(20px);
             }
-            50% {
-                opacity: 0.5;
-            }
         }
-        .pulse {
-            animation: pulse 2s ease-in-out infinite;
-        }
-        /* Responsive */
+
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 1.6rem;
-            }
-            .hero-logo {
-                width: 65px;
-                height: 65px;
+            .nav {
+                padding: 6px 10px;
+                gap: 4px;
             }
             .nav-links {
                 gap: 2px;
             }
             .nav-links button {
-                padding: 5px 10px;
-                font-size: 0.78rem;
+                padding: 5px 8px;
+                font-size: 0.72rem;
+                min-height: 36px;
+                min-width: 36px;
             }
             .nav-logo {
-                font-size: 1rem;
+                font-size: 0.95rem;
             }
             .nav-logo img {
                 width: 28px;
@@ -731,96 +1026,231 @@
                 text-align: center;
                 gap: 8px;
             }
+            .hero-logo {
+                width: 65px;
+                height: 65px;
+            }
+            .hero-banner img {
+                aspect-ratio: 16 / 5;
+            }
+            .card-header-img img {
+                aspect-ratio: 16 / 5;
+            }
+            #splashScreen .splash-logo {
+                width: 80px;
+                height: 80px;
+            }
         }
+
         @media (max-width: 480px) {
             .nav {
-                padding: 6px 8px;
+                padding: 4px 6px;
             }
             .nav-links button {
-                padding: 4px 8px;
-                font-size: 0.72rem;
-                border-radius: 14px;
+                padding: 4px 6px;
+                font-size: 0.65rem;
+                min-height: 32px;
+                min-width: 32px;
+                border-radius: 12px;
             }
             .hero {
-                padding: 24px 10px 16px;
+                padding: 18px 10px 12px;
             }
             .hero h1 {
-                font-size: 1.3rem;
+                font-size: 1.2rem;
             }
             .btn {
-                padding: 8px 15px;
-                font-size: 0.85rem;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+                min-height: 38px;
             }
             .stats-grid {
                 grid-template-columns: 1fr 1fr;
                 gap: 8px;
             }
+            .stat-card {
+                padding: 12px;
+            }
+            .container {
+                padding: 10px 12px;
+            }
+            .card {
+                padding: 14px 12px;
+                margin: 10px 0;
+            }
+            .hero-banner img {
+                aspect-ratio: 16 / 5;
+            }
+            .card-header-img img {
+                aspect-ratio: 16 / 5;
+            }
+            #splashScreen .splash-logo {
+                width: 64px;
+                height: 64px;
+            }
+            #splashScreen h1 {
+                font-size: 1.4rem;
+            }
+            .install-btn {
+                padding: 6px 12px;
+                font-size: 0.7rem;
+                min-height: 36px;
+            }
+            .icon-btn {
+                width: 38px;
+                height: 38px;
+                min-width: 38px;
+                min-height: 38px;
+            }
+            .icon-btn svg {
+                width: 16px;
+                height: 16px;
+            }
         }
-        /* Scrollbar */
+
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1000px;
+                padding: 20px 30px;
+            }
+            .hero-banner img {
+                aspect-ratio: 16 / 4.5;
+            }
+            .card-header-img img {
+                aspect-ratio: 16 / 4.5;
+            }
+        }
+
+        @media (orientation: landscape) and (max-height: 500px) {
+            .hero {
+                padding: 12px 10px 8px;
+            }
+            .hero-logo {
+                width: 50px;
+                height: 50px;
+                margin-bottom: 10px;
+            }
+            .hero h1 {
+                font-size: 1.2rem;
+            }
+            .hero p {
+                font-size: 0.85rem;
+                margin-bottom: 12px;
+            }
+            .hero-banner img {
+                aspect-ratio: 16 / 4;
+            }
+            .card-header-img img {
+                aspect-ratio: 16 / 4;
+            }
+        }
+
+        /* ===== SCROLLBAR ===== */
         ::-webkit-scrollbar {
             width: 6px;
+            height: 6px;
         }
+
         ::-webkit-scrollbar-track {
             background: transparent;
         }
+
         ::-webkit-scrollbar-thumb {
             background: var(--border);
             border-radius: 10px;
         }
+
         ::-webkit-scrollbar-thumb:hover {
             background: var(--gold2);
         }
-        /* Toast */
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            right: 20px;
-            background: var(--primary);
-            color: #fff;
-            padding: 12px 20px;
-            border-radius: 25px;
-            z-index: 400;
-            font-size: 0.9rem;
-            box-shadow: var(--shadow2);
-            animation: slideUp 0.4s ease, fadeOut 0.4s ease 2.5s forwards;
-            font-family: var(--font);
-        }
-        @keyframes fadeOut {
-            to {
-                opacity: 0;
-                transform: translateY(20px);
+
+        /* ===== ACCESSIBILITY ===== */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
+        }
+
+        /* ===== UTILITY ===== */
+        .text-center {
+            text-align: center;
+        }
+        .mt-8 {
+            margin-top: 8px;
+        }
+        .mt-12 {
+            margin-top: 12px;
+        }
+        .mt-16 {
+            margin-top: 16px;
+        }
+        .gap-8 {
+            gap: 8px;
+        }
+        .flex-wrap {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .flex-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
+
 <body>
 
-    <!-- Cookie Consent Banner -->
-    <div class="cookie-banner" id="cookieBanner" style="display:none;">
+    <!-- ===== SPLASH SCREEN ===== -->
+    <div id="splashScreen" role="status" aria-label="Loading Faith Journal">
+        <img
+        src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/WhatsApp%20Image%202026-06-19%20at%2010.59.51.png"
+        alt="Faith Journal Logo"
+        class="splash-logo"
+        width="100"
+        height="100"
+        />
+        <h1>Faith Journal</h1>
+        <p class="splash-version">Version 1.0.1</p>
+        <p class="splash-sub">Your companion for spiritual growth</p>
+    </div>
+
+    <!-- ===== COOKIE CONSENT BANNER ===== -->
+    <div class="cookie-banner" id="cookieBanner" style="display:none;" role="alert">
         <p>This website uses cookies only to improve your experience and save your data locally on your device. No personal information is collected or shared.</p>
         <button class="btn btn-primary btn-sm" onclick="acceptCookies()">Accept</button>
         <button class="btn btn-outline btn-sm" onclick="declineCookies()">Decline</button>
     </div>
 
-    <!-- Welcome Modal -->
-    <div class="modal-overlay" id="welcomeModal" style="display:none;">
+    <!-- ===== WELCOME MODAL ===== -->
+    <div class="modal-overlay" id="welcomeModal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
         <div class="modal">
-            <h3>Welcome to Faith Journal</h3>
+            <h3 id="welcomeTitle">Welcome to Faith Journal</h3>
             <p style="margin:12px 0;color:var(--text2);">This application is designed to support personal prayer, reflection, Bible study, and spiritual growth. We do not promise, predict, or guarantee that any prayer, request, or journal entry will be answered. Faith is a personal journey between you and God. This platform serves only as a tool to help organize and strengthen your spiritual habits.</p>
             <p style="margin:12px 0;color:var(--text2);">We respect your privacy. This website does not request or collect sensitive personal information. Journal entries and saved data are stored locally on your device and are not transmitted to external servers.</p>
             <p style="margin:12px 0;color:var(--text2);">This application is intended to be a companion tool for your spiritual journey. It should not replace personal prayer, reading Scripture, church fellowship, pastoral guidance, or your direct relationship with God.</p>
             <label style="display:flex;align-items:center;gap:10px;margin:16px 0;cursor:pointer;">
-                <input type="checkbox" id="welcomeCheckbox" style="width:20px;height:20px;cursor:pointer;">
+                <input type="checkbox" id="welcomeCheckbox" style="width:20px;height:20px;cursor:pointer;" />
                 <span>I understand and agree to the above disclaimer and privacy notice.</span>
             </label>
             <button class="btn btn-primary" onclick="acceptWelcome()" id="welcomeBtn" disabled>Continue to Faith Journal</button>
         </div>
     </div>
 
-    <!-- Navigation -->
+    <!-- ===== NAVIGATION ===== -->
     <nav class="nav" role="navigation" aria-label="Main navigation">
         <a class="nav-logo" href="#" onclick="showTab('home')" aria-label="Faith Journal Home">
-            <img src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/WhatsApp%20Image%202026-06-19%20at%2010.59.51.png" alt="Faith Journal Logo" width="36" height="36" loading="eager">
+            <img
+            src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/WhatsApp%20Image%202026-06-19%20at%2010.59.51.png"
+            alt="Faith Journal Logo"
+            width="36"
+            height="36"
+            loading="eager"
+            />
             Faith Journal
         </a>
         <div class="nav-links" role="tablist">
@@ -836,20 +1266,37 @@
                 Install
             </button>
             <button class="icon-btn" onclick="toggleDarkMode()" aria-label="Toggle dark mode" title="Toggle dark/light mode">
-                <svg id="darkIcon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                <svg id="darkIcon" viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
             </button>
             <button class="icon-btn" onclick="showTab('more');document.getElementById('settingsSection')?.scrollIntoView({behavior:'smooth'});" aria-label="Settings" title="Settings">
-                <svg viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                <svg viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
             </button>
         </div>
     </nav>
 
-    <!-- Main Content -->
+    <!-- ===== MAIN CONTENT ===== -->
     <main class="container" id="mainContent">
-        <!-- Home Tab -->
+
+        <!-- ===== HOME TAB ===== -->
         <div class="tab-content active" id="tabContent-home" role="tabpanel">
             <section class="hero">
-                <img src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/WhatsApp%20Image%202026-06-19%20at%2010.59.51.png" alt="Faith Journal Logo" class="hero-logo" width="90" height="90">
+                <!-- Hero Banner Image -->
+                <div class="hero-banner">
+                    <img
+                    src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/1.%20Hero%20Banner%20(Home%20Screen).png"
+                    alt="Serene sunrise over open Bible"
+                    width="1200"
+                    height="400"
+                    loading="eager"
+                    />
+                </div>
+                <img
+                src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/WhatsApp%20Image%202026-06-19%20at%2010.59.51.png"
+                alt="Faith Journal Logo"
+                class="hero-logo"
+                width="90"
+                height="90"
+                />
                 <h1>Faith Journal</h1>
                 <p>Your companion for prayer, Bible study, reflection, and spiritual growth. Track your journey, build lasting habits, and grow closer to God each day.</p>
                 <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
@@ -864,9 +1311,9 @@
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
                     Daily Bible Verse
                 </h2>
-                <blockquote id="dailyVerseText" style="font-family:var(--font-heading);font-size:1.2rem;font-style:italic;margin:12px 0;color:var(--primary);line-height:1.6;">Loading...</blockquote>
+                <blockquote id="dailyVerseText" style="font-family:var(--font-heading);font-size:clamp(1.05rem,2.2vw,1.2rem);font-style:italic;margin:12px 0;color:var(--primary);line-height:1.6;">Loading...</blockquote>
                 <p id="dailyVerseRef" style="font-weight:700;color:var(--gold2);"></p>
-                <div id="dailyVerseReflection" style="background:var(--accent-warm);padding:14px;border-radius:var(--radius2);margin:10px 0;font-size:0.9rem;color:var(--text2);"></div>
+                <div id="dailyVerseReflection" style="background:var(--accent-warm);padding:14px;border-radius:var(--radius2);margin:10px 0;font-size:clamp(0.85rem,1.2vw,0.9rem);color:var(--text2);"></div>
                 <button class="btn btn-outline btn-sm" onclick="getNewDailyVerse()">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
                     Show Another Verse
@@ -875,17 +1322,42 @@
 
             <!-- Motivational Reminder -->
             <div class="card" style="text-align:center;border-left:4px solid var(--gold2);">
-                <p id="motivationalMsg" style="font-family:var(--font-heading);font-size:1.1rem;color:var(--primary);"></p>
+                <p id="motivationalMsg" style="font-family:var(--font-heading);font-size:clamp(1rem,1.8vw,1.1rem);color:var(--primary);"></p>
             </div>
         </div>
 
-        <!-- Journal Tab -->
+        <!-- ===== JOURNAL TAB ===== -->
         <div class="tab-content" id="tabContent-journal" role="tabpanel">
+
+            <!-- Journal Header Illustration -->
+            <div class="card-header-img">
+                <img
+                src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/2.%20journal%20header%20image.png"
+                alt="Open journal with warm light"
+                width="1200"
+                height="400"
+                loading="lazy"
+                />
+            </div>
+
+            <!-- Prayer Journal -->
             <div class="card">
                 <h2>
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
                     Prayer Journal
                 </h2>
+
+                <!-- Prayer Header Image -->
+                <div class="card-header-img" style="margin-bottom:12px;">
+                    <img
+                    src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/3.%20prayer%20header.png"
+                    alt="Hands in prayer with soft light"
+                    width="1200"
+                    height="400"
+                    loading="lazy"
+                    />
+                </div>
+
                 <label for="prayerInput">Write your prayer:</label>
                 <textarea id="prayerInput" placeholder="Dear Lord..." aria-label="Write your prayer"></textarea>
                 <label for="prayerCategory" style="margin-top:8px;">Category:</label>
@@ -894,10 +1366,13 @@
                 </select>
                 <button class="btn btn-primary btn-sm" style="margin-top:10px;" onclick="savePrayer()">Save Prayer</button>
                 <div style="margin-top:10px;">
-                    <input type="search" id="prayerSearch" placeholder="Search prayers..." aria-label="Search prayers" oninput="renderPrayers()">
+                    <input type="search" id="prayerSearch" placeholder="Search prayers..." aria-label="Search prayers" oninput="renderPrayers()" />
                 </div>
             </div>
+
             <div id="savedPrayersList"></div>
+
+            <!-- Answered Prayers -->
             <div class="card" id="answeredSection">
                 <h2>
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
@@ -905,11 +1380,25 @@
                 </h2>
                 <div id="answeredPrayersList"><p style="color:var(--text2);">No answered prayers yet. Mark prayers as answered from your journal.</p></div>
             </div>
+
+            <!-- Reflection Journal -->
             <div class="card">
                 <h2>
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                     Reflection Journal
                 </h2>
+
+                <!-- Reflection Header Image -->
+                <div class="card-header-img" style="margin-bottom:12px;">
+                    <img
+                    src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/4.%20reflection%20header.png"
+                    alt="Peaceful sunset reflection"
+                    width="1200"
+                    height="400"
+                    loading="lazy"
+                    />
+                </div>
+
                 <label for="reflectionInput">Daily Reflection:</label>
                 <textarea id="reflectionInput" placeholder="What is on your heart today?" aria-label="Daily reflection"></textarea>
                 <button class="btn btn-primary btn-sm" style="margin-top:8px;" onclick="saveReflection()">Save Reflection</button>
@@ -917,7 +1406,7 @@
             </div>
         </div>
 
-        <!-- Study Tab -->
+        <!-- ===== STUDY TAB ===== -->
         <div class="tab-content" id="tabContent-study" role="tabpanel">
             <div class="card">
                 <h2>
@@ -926,8 +1415,8 @@
                 </h2>
                 <p>Track books and chapters completed:</p>
                 <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
-                    <input type="text" id="bookInput" placeholder="Book name (e.g., Genesis)" aria-label="Book name" style="flex:1;min-width:140px;">
-                    <input type="number" id="chapterInput" placeholder="Chapter" aria-label="Chapter number" min="1" style="width:90px;">
+                    <input type="text" id="bookInput" placeholder="Book name (e.g., Genesis)" aria-label="Book name" style="flex:1;min-width:140px;" />
+                    <input type="number" id="chapterInput" placeholder="Chapter" aria-label="Chapter number" min="1" style="width:90px;" />
                     <button class="btn btn-primary btn-sm" onclick="addReadingProgress()">Add</button>
                 </div>
                 <div style="margin-top:10px;">
@@ -936,6 +1425,7 @@
                 </div>
                 <div id="readingLog" style="margin-top:8px;font-size:0.85rem;color:var(--text2);"></div>
             </div>
+
             <div class="card">
                 <h2>
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
@@ -950,18 +1440,20 @@
                 <div id="readingPlanDetails" style="margin-top:10px;font-size:0.9rem;color:var(--text2);"></div>
                 <div id="readingPlanProgress" style="margin-top:8px;"></div>
             </div>
+
             <div class="card">
                 <h2>
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                     Favorite Bible Verses
                 </h2>
                 <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                    <input type="text" id="favVerseText" placeholder="Verse text" aria-label="Favorite verse text" style="flex:1;min-width:150px;">
-                    <input type="text" id="favVerseRef" placeholder="Reference (e.g., John 3:16)" aria-label="Verse reference" style="width:160px;">
+                    <input type="text" id="favVerseText" placeholder="Verse text" aria-label="Favorite verse text" style="flex:1;min-width:150px;" />
+                    <input type="text" id="favVerseRef" placeholder="Reference (e.g., John 3:16)" aria-label="Verse reference" style="width:160px;" />
                     <button class="btn btn-primary btn-sm" onclick="saveFavoriteVerse()">Save</button>
                 </div>
                 <div id="favoriteVersesList" style="margin-top:10px;"></div>
             </div>
+
             <div class="card" id="quizSection">
                 <h2>
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
@@ -975,7 +1467,7 @@
             </div>
         </div>
 
-        <!-- Habits Tab -->
+        <!-- ===== HABITS TAB ===== -->
         <div class="tab-content" id="tabContent-habits" role="tabpanel">
             <div class="card">
                 <h2>
@@ -985,11 +1477,24 @@
                 <p style="color:var(--text2);">Track your daily spiritual habits:</p>
                 <div id="habitList"></div>
             </div>
+
             <div class="card">
                 <h2>
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                     Daily Spiritual Check-In
                 </h2>
+
+                <!-- Daily Check-In Header Image -->
+                <div class="card-header-img" style="margin-bottom:12px;">
+                    <img
+                    src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/5.%20Daily%20check%20in%20header.png"
+                    alt="Morning light with coffee and journal"
+                    width="1200"
+                    height="400"
+                    loading="lazy"
+                    />
+                </div>
+
                 <p id="checkinQuestion" style="font-weight:600;"></p>
                 <div id="checkinOptions" style="display:flex;gap:10px;flex-wrap:wrap;margin:10px 0;"></div>
                 <textarea id="checkinGratitude" placeholder="What are you grateful for today?" aria-label="Gratitude entry" style="margin-top:8px;"></textarea>
@@ -998,7 +1503,7 @@
             </div>
         </div>
 
-        <!-- More Tab -->
+        <!-- ===== MORE TAB ===== -->
         <div class="tab-content" id="tabContent-more" role="tabpanel">
             <div class="card">
                 <h2>
@@ -1014,37 +1519,42 @@
                     <div class="stat-card"><div class="stat-number" id="statReflections">0</div><div class="stat-label">Reflections</div></div>
                 </div>
             </div>
+
             <div class="card" id="settingsSection">
                 <h2>
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-                    Settings & Data
+                    Settings &amp; Data
                 </h2>
                 <button class="btn btn-outline btn-sm" onclick="exportData()">Export Data (JSON)</button>
                 <button class="btn btn-outline btn-sm" style="margin-left:6px;" onclick="document.getElementById('importFileInput').click()">Import Data</button>
-                <input type="file" id="importFileInput" accept=".json" style="display:none;" onchange="importData(event)">
+                <input type="file" id="importFileInput" accept=".json" style="display:none;" onchange="importData(event)" />
                 <button class="btn btn-danger btn-sm" style="margin-left:6px;" onclick="if(confirm('Delete ALL local data? This cannot be undone.')){clearAllData();}">Clear All Data</button>
                 <p style="margin-top:8px;font-size:0.8rem;color:var(--text2);">Backup your data regularly to prevent loss.</p>
                 <div id="installHelpText" style="margin-top:12px;padding:12px;background:var(--accent-warm);border-radius:var(--radius2);font-size:0.85rem;color:var(--text2);display:none;"></div>
             </div>
+
             <div class="card">
                 <h2>
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
                     Encouragement Library
                 </h2>
-                <p id="encouragementMsg" style="font-family:var(--font-heading);font-size:1.05rem;color:var(--primary);"></p>
+                <p id="encouragementMsg" style="font-family:var(--font-heading);font-size:clamp(1rem,1.8vw,1.05rem);color:var(--primary);"></p>
                 <button class="btn btn-outline btn-sm" onclick="showRandomEncouragement()">Show Another</button>
             </div>
+
             <div class="card" id="aboutSection">
                 <h2>About Faith Journal</h2>
                 <p style="color:var(--text2);">Faith Journal is designed to help you build consistent spiritual habits through prayer journaling, Bible study tracking, daily reflection, and habit formation. Our mission is to provide a peaceful, private space for your faith journey.</p>
-                <p style="color:var(--text2);margin-top:8px;">Version 1.0.0</p>
+                <p style="color:var(--text2);margin-top:8px;">Version 1.0.1</p>
             </div>
+
             <div class="card" id="privacySection">
-                <h2>Privacy & Disclaimer</h2>
+                <h2>Privacy &amp; Disclaimer</h2>
                 <p style="color:var(--text2);font-size:0.9rem;">This application is designed to support personal prayer, reflection, Bible study, and spiritual growth. We do not promise, predict, or guarantee that any prayer, request, or journal entry will be answered. Faith is a personal journey between you and God. This platform serves only as a tool to help organize and strengthen your spiritual habits.</p>
                 <p style="color:var(--text2);font-size:0.9rem;margin-top:8px;">We respect your privacy. This website does not request or collect sensitive personal information such as ID numbers, passport numbers, banking details, credit card information, or government-issued identification. Journal entries and saved data are stored locally on your device and are not transmitted to external servers.</p>
                 <p style="color:var(--text2);font-size:0.9rem;margin-top:8px;">This application is intended to be a companion tool for your spiritual journey. While it can help you organize prayers, reflections, and Bible study habits, it should not replace personal prayer, reading Scripture, church fellowship, pastoral guidance, or your direct relationship with God.</p>
             </div>
+
             <div class="card" id="contactSection">
                 <h2>Contact</h2>
                 <p style="color:var(--text2);">For inquiries, visit our website:</p>
@@ -1053,7 +1563,7 @@
         </div>
     </main>
 
-    <!-- Footer -->
+    <!-- ===== FOOTER ===== -->
     <footer class="site-footer">
         <div class="footer-links">
             <button onclick="showTab('more');document.getElementById('privacySection')?.scrollIntoView({behavior:'smooth'});">Privacy Notice</button>
@@ -1063,19 +1573,22 @@
         </div>
         <p>&copy; <span id="currentYear"></span> All rights reserved.</p>
         <p><a href="https://websolutionsza.github.io/websolutionsSA/" target="_blank" rel="noopener" title="Visit WebsolutionsSA">Website developed by WebsolutionsSA</a></p>
-        <p style="font-size:0.75rem;">Version 1.0.0</p>
+        <p style="font-size:0.75rem;">Version 1.0.1</p>
     </footer>
 
-    <!-- Toast container -->
+    <!-- ===== TOAST CONTAINER ===== -->
     <div id="toastContainer"></div>
 
+    <!-- ===== JAVASCRIPT ===== -->
     <script>
         (function() {
+            'use strict';
+
             // ============ APP STATE ============
             const LOGO_URL =
                 'https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/WhatsApp%20Image%202026-06-19%20at%2010.59.51.png';
             const APP_NAME = 'Faith Journal';
-            const APP_VERSION = '1.0.0';
+            const APP_VERSION = '1.0.1';
 
             // Bible verses database
             const bibleVerses = [
@@ -1117,7 +1630,7 @@
                 { q: 'What is the first book of the Bible?', options: ['Exodus', 'Genesis', 'Psalms', 'Leviticus'],
                     correct: 1 },
                 { q: 'Who was thrown into the lions\' den?', options: ['Joseph', 'Daniel', 'Elijah', 'Samuel'],
-                correct: 1 },
+                    correct: 1 },
                 { q: 'What did God create on the seventh day?', options: ['Animals', 'Light', 'He rested', 'Humans'],
                     correct: 2 },
                 { q: 'Who wrote most of the Psalms?', options: ['Solomon', 'David', 'Moses', 'Asaph'], correct: 1 },
@@ -1127,7 +1640,7 @@
                 { q: 'Where was Jesus born?', options: ['Nazareth', 'Jerusalem', 'Bethlehem', 'Galilee'], correct: 2 },
                 { q: 'How many disciples did Jesus have?', options: ['10', '7', '12', '14'], correct: 2 },
                 { q: 'What is the last book of the Bible?', options: ['Malachi', 'Revelation', 'Jude', 'Acts'],
-                correct: 1 },
+                    correct: 1 },
             ];
 
             const encouragements = [
@@ -1181,7 +1694,7 @@
                 try {
                     const raw = localStorage.getItem('faith_journal_' + key);
                     return raw ? JSON.parse(raw) : defaultValue;
-                } catch (e) {
+                } catch (_) {
                     return defaultValue;
                 }
             }
@@ -1189,7 +1702,7 @@
             function setData(key, value) {
                 try {
                     localStorage.setItem('faith_journal_' + key, JSON.stringify(value));
-                } catch (e) {
+                } catch (_) {
                     showToast('Storage full. Please clear some data.');
                 }
             }
@@ -1219,7 +1732,6 @@
             let currentQuizQ = null;
             let deferredPrompt = null;
 
-            // Track active day
             const todayStr = new Date().toISOString().split('T')[0];
             if (!activeDays.includes(todayStr)) {
                 activeDays.push(todayStr);
@@ -1251,7 +1763,6 @@
                 setData('darkMode', isDark);
             }
 
-            // Initialize dark mode
             if (darkModePref !== null) {
                 applyDarkMode(darkModePref);
             } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -1266,7 +1777,7 @@
                 toast.className = 'toast';
                 toast.textContent = msg;
                 document.getElementById('toastContainer').appendChild(toast);
-                setTimeout(() => toast.remove(), 3000);
+                setTimeout(function() { toast.remove(); }, 3000);
             }
 
             // ============ COOKIE BANNER ============
@@ -1302,13 +1813,12 @@
 
             // ============ TAB NAVIGATION ============
             function showTab(tabName) {
-                document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-                document.querySelectorAll('.nav-links button').forEach(el => el.classList.remove('active'));
-                const contentEl = document.getElementById('tabContent-' + tabName);
-                const tabBtn = document.getElementById('tab-' + tabName);
+                document.querySelectorAll('.tab-content').forEach(function(el) { el.classList.remove('active'); });
+                document.querySelectorAll('.nav-links button').forEach(function(el) { el.classList.remove('active'); });
+                var contentEl = document.getElementById('tabContent-' + tabName);
+                var tabBtn = document.getElementById('tab-' + tabName);
                 if (contentEl) contentEl.classList.add('active');
                 if (tabBtn) tabBtn.classList.add('active');
-                // Refresh dynamic content
                 if (tabName === 'journal') renderPrayers();
                 if (tabName === 'study') { renderReadingLog();
                     renderFavorites();
@@ -1321,8 +1831,8 @@
 
             // ============ DAILY VERSE ============
             function getDailyVerseIndex() {
-                const stored = getData('dailyVerseIndex', -1);
-                let idx = stored;
+                var stored = getData('dailyVerseIndex', -1);
+                var idx = stored;
                 if (idx < 0 || idx >= bibleVerses.length) {
                     idx = Math.floor(Math.random() * bibleVerses.length);
                 } else {
@@ -1333,32 +1843,32 @@
             }
 
             function displayDailyVerse() {
-                const idx = getDailyVerseIndex();
-                const verse = bibleVerses[idx];
+                var idx = getDailyVerseIndex();
+                var verse = bibleVerses[idx];
                 document.getElementById('dailyVerseText').textContent = '"' + verse.text + '"';
                 document.getElementById('dailyVerseRef').textContent = '— ' + verse.ref;
                 document.getElementById('dailyVerseReflection').textContent = verse.reflection;
             }
 
             function getNewDailyVerse() {
-                const idx = Math.floor(Math.random() * bibleVerses.length);
+                var idx = Math.floor(Math.random() * bibleVerses.length);
                 setData('dailyVerseIndex', idx);
                 displayDailyVerse();
             }
 
             // ============ MOTIVATIONAL MESSAGE ============
             function showMotivational() {
-                const msg = encouragements[Math.floor(Math.random() * encouragements.length)];
+                var msg = encouragements[Math.floor(Math.random() * encouragements.length)];
                 document.getElementById('motivationalMsg').textContent = '"' + msg + '"';
             }
 
             // ============ PRAYER JOURNAL ============
             function savePrayer() {
-                const input = document.getElementById('prayerInput');
-                const category = document.getElementById('prayerCategory').value;
-                const text = input.value.trim();
+                var input = document.getElementById('prayerInput');
+                var category = document.getElementById('prayerCategory').value;
+                var text = input.value.trim();
                 if (!text) { showToast('Please write a prayer first.'); return; }
-                const prayer = {
+                var prayer = {
                     id: Date.now(),
                     text: sanitize(text),
                     category: category,
@@ -1374,8 +1884,8 @@
             }
 
             function deletePrayer(id) {
-                prayers = prayers.filter(p => p.id !== id);
-                answeredPrayers = answeredPrayers.filter(p => p.id !== id);
+                prayers = prayers.filter(function(p) { return p.id !== id; });
+                answeredPrayers = answeredPrayers.filter(function(p) { return p.id !== id; });
                 setData('prayers', prayers);
                 setData('answeredPrayers', answeredPrayers);
                 renderPrayers();
@@ -1384,7 +1894,7 @@
             }
 
             function markAnswered(id) {
-                const prayer = prayers.find(p => p.id === id);
+                var prayer = prayers.find(function(p) { return p.id === id; });
                 if (prayer && !prayer.answered) {
                     prayer.answered = true;
                     prayer.answeredDate = new Date().toISOString();
@@ -1398,54 +1908,61 @@
             }
 
             function renderPrayers() {
-                const searchTerm = (document.getElementById('prayerSearch')?.value || '').toLowerCase();
-                let filtered = prayers.filter(p => !p.answered);
+                var searchTerm = (document.getElementById('prayerSearch')?.value || '').toLowerCase();
+                var filtered = prayers.filter(function(p) { return !p.answered; });
                 if (searchTerm) {
-                    filtered = filtered.filter(p => p.text.toLowerCase().includes(searchTerm) || p.category
-                        .toLowerCase().includes(searchTerm));
+                    filtered = filtered.filter(function(p) {
+                        return p.text.toLowerCase().includes(searchTerm) || p.category.toLowerCase().includes(
+                        searchTerm);
+                    });
                 }
-                const container = document.getElementById('savedPrayersList');
-                const answeredContainer = document.getElementById('answeredPrayersList');
+                var container = document.getElementById('savedPrayersList');
+                var answeredContainer = document.getElementById('answeredPrayersList');
                 if (!container) return;
+
                 if (filtered.length === 0 && !searchTerm) {
                     container.innerHTML =
-                        '<p style="color:var(--text2);padding:12px;">No prayers saved yet. Write your first prayer above.</p>';
+                        '<div class="empty-state"><img src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/6.%20empty%20slate%20illustration.png" alt="Empty journal" width="200" height="200" loading="lazy" /><p>Your journey begins with a single prayer.</p></div>';
                 } else if (filtered.length === 0 && searchTerm) {
-                    container.innerHTML = '<p style="color:var(--text2);padding:12px;">No prayers match your search.</p>';
+                    container.innerHTML =
+                    '<p style="color:var(--text2);padding:12px;">No prayers match your search.</p>';
                 } else {
-                    container.innerHTML = filtered.map(p => `
-                <div class="card" style="padding:14px 16px;">
-                  <p style="margin-bottom:6px;">${p.text}</p>
-                  <span class="tag">${p.category}</span>
-                  <span style="font-size:0.75rem;color:var(--text2);margin-left:8px;">${new Date(p.date).toLocaleDateString()}</span>
-                  <div style="margin-top:8px;display:flex;gap:8px;">
-                    <button class="btn btn-sm btn-gold" onclick="markAnswered(${p.id})">Mark Answered</button>
-                    <button class="btn btn-sm btn-danger" onclick="deletePrayer(${p.id})">Delete</button>
-                  </div>
-                </div>
-              `).join('');
+                    container.innerHTML = filtered.map(function(p) {
+                        return '<div class="card" style="padding:14px 16px;">' +
+                            '<p style="margin-bottom:6px;">' + p.text + '</p>' +
+                            '<span class="tag">' + p.category + '</span>' +
+                            '<span style="font-size:0.75rem;color:var(--text2);margin-left:8px;">' + new Date(p
+                                .date).toLocaleDateString() + '</span>' +
+                            '<div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">' +
+                            '<button class="btn btn-sm btn-gold" onclick="markAnswered(' + p.id +
+                            ')">Mark Answered</button>' +
+                            '<button class="btn btn-sm btn-danger" onclick="deletePrayer(' + p.id +
+                            ')">Delete</button>' +
+                            '</div></div>';
+                    }).join('');
                 }
-                // Answered prayers
+
                 if (answeredContainer) {
                     if (answeredPrayers.length === 0) {
                         answeredContainer.innerHTML =
                             '<p style="color:var(--text2);">No answered prayers yet. Mark prayers as answered from your journal.</p>';
                     } else {
-                        answeredContainer.innerHTML = answeredPrayers.map(p => `
-                  <div class="card" style="padding:14px 16px;border-left:4px solid var(--success);">
-                    <p style="margin-bottom:4px;">${p.text}</p>
-                    <span class="tag">${p.category}</span>
-                    <span style="font-size:0.75rem;color:var(--text2);margin-left:8px;">Answered: ${new Date(p.answeredDate).toLocaleDateString()}</span>
-                  </div>
-                `).join('');
+                        answeredContainer.innerHTML = answeredPrayers.map(function(p) {
+                            return '<div class="card" style="padding:14px 16px;border-left:4px solid var(--success);">' +
+                                '<p style="margin-bottom:4px;">' + p.text + '</p>' +
+                                '<span class="tag">' + p.category + '</span>' +
+                                '<span style="font-size:0.75rem;color:var(--text2);margin-left:8px;">Answered: ' +
+                                new Date(p.answeredDate).toLocaleDateString() + '</span>' +
+                                '</div>';
+                        }).join('');
                     }
                 }
             }
 
             // ============ REFLECTIONS ============
             function saveReflection() {
-                const input = document.getElementById('reflectionInput');
-                const text = input.value.trim();
+                var input = document.getElementById('reflectionInput');
+                var text = input.value.trim();
                 if (!text) { showToast('Please write a reflection.'); return; }
                 reflections.unshift({ id: Date.now(), text: sanitize(text), date: new Date().toISOString() });
                 setData('reflections', reflections);
@@ -1456,35 +1973,38 @@
             }
 
             function deleteReflection(id) {
-                reflections = reflections.filter(r => r.id !== id);
+                reflections = reflections.filter(function(r) { return r.id !== id; });
                 setData('reflections', reflections);
                 renderReflections();
                 updateStats();
             }
 
             function renderReflections() {
-                const container = document.getElementById('reflectionsList');
+                var container = document.getElementById('reflectionsList');
                 if (!container) return;
                 if (reflections.length === 0) {
-                    container.innerHTML = '<p style="color:var(--text2);">No reflections yet.</p>';
+                    container.innerHTML =
+                        '<div class="empty-state"><img src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/6.%20empty%20slate%20illustration.png" alt="Empty reflection" width="200" height="200" loading="lazy" /><p>No reflections yet. Start writing today.</p></div>';
                 } else {
-                    container.innerHTML = reflections.slice(0, 10).map(r => `
-                <div class="card" style="padding:12px 14px;">
-                  <p>${r.text}</p>
-                  <span style="font-size:0.75rem;color:var(--text2);">${new Date(r.date).toLocaleString()}</span>
-                  <button class="btn btn-sm btn-danger" style="float:right;" onclick="deleteReflection(${r.id})">Delete</button>
-                </div>
-              `).join('');
+                    container.innerHTML = reflections.slice(0, 10).map(function(r) {
+                        return '<div class="card" style="padding:12px 14px;">' +
+                            '<p>' + r.text + '</p>' +
+                            '<span style="font-size:0.75rem;color:var(--text2);">' + new Date(r.date)
+                            .toLocaleString() + '</span>' +
+                            '<button class="btn btn-sm btn-danger" style="float:right;" onclick="deleteReflection(' +
+                            r.id + ')">Delete</button>' +
+                            '</div>';
+                    }).join('');
                 }
             }
 
             // ============ BIBLE READING TRACKER ============
             function addReadingProgress() {
-                const book = document.getElementById('bookInput').value.trim();
-                const chapter = document.getElementById('chapterInput').value.trim();
+                var book = document.getElementById('bookInput').value.trim();
+                var chapter = document.getElementById('chapterInput').value.trim();
                 if (!book || !chapter) { showToast('Please enter both book and chapter.'); return; }
                 readingLog.unshift({ book: sanitize(book), chapter: sanitize(chapter), date: new Date()
-                .toISOString() });
+                    .toISOString() });
                 setData('readingLog', readingLog);
                 document.getElementById('bookInput').value = '';
                 document.getElementById('chapterInput').value = '';
@@ -1494,42 +2014,45 @@
             }
 
             function renderReadingLog() {
-                const totalChapters = readingLog.length;
-                const progressPercent = Math.min(100, totalChapters * 2);
-                document.getElementById('readingProgressText').textContent = 'Progress: ' + progressPercent + '% (based on ' +
-                    totalChapters + ' entries)';
+                var totalChapters = readingLog.length;
+                var progressPercent = Math.min(100, totalChapters * 2);
+                document.getElementById('readingProgressText').textContent = 'Progress: ' + progressPercent +
+                    '% (based on ' + totalChapters + ' entries)';
                 document.getElementById('readingProgressBar').style.width = progressPercent + '%';
-                const container = document.getElementById('readingLog');
+                var container = document.getElementById('readingLog');
                 if (container) {
-                    container.innerHTML = readingLog.slice(0, 15).map(r =>
-                        `${r.book} chapter ${r.chapter} — ${new Date(r.date).toLocaleDateString()}`
-                    ).join('<br>');
+                    container.innerHTML = readingLog.slice(0, 15).map(function(r) {
+                        return r.book + ' chapter ' + r.chapter + ' — ' + new Date(r.date).toLocaleDateString();
+                    }).join('<br>');
+                    if (readingLog.length === 0) {
+                        container.innerHTML = '<p style="color:var(--text2);">No reading logged yet.</p>';
+                    }
                 }
             }
 
             function selectReadingPlan() {
-                const planKey = document.getElementById('readingPlanSelect').value;
-                const detailsEl = document.getElementById('readingPlanDetails');
-                const progressEl = document.getElementById('readingPlanProgress');
+                var planKey = document.getElementById('readingPlanSelect').value;
+                var detailsEl = document.getElementById('readingPlanDetails');
+                var progressEl = document.getElementById('readingPlanProgress');
                 if (!planKey) {
                     detailsEl.textContent = '';
                     progressEl.innerHTML = '';
                     return;
                 }
-                const plan = readingPlans[planKey];
+                var plan = readingPlans[planKey];
                 detailsEl.textContent = plan.name + ' — ' + plan.days.length + ' days of guided reading.';
-                const saved = readingPlanProgress[planKey] || 0;
-                const pct = Math.round((saved / plan.days.length) * 100);
-                progressEl.innerHTML = `
-              <span>Completed: ${saved} / ${plan.days.length} days (${pct}%)</span>
-              <div class="progress-bar"><div class="progress-fill" style="width:${pct}%;"></div></div>
-              <button class="btn btn-sm btn-gold" style="margin-top:6px;" onclick="markPlanDay('${planKey}')">Mark Today as Complete</button>
-            `;
+                var saved = readingPlanProgress[planKey] || 0;
+                var pct = Math.round((saved / plan.days.length) * 100);
+                progressEl.innerHTML =
+                    '<span>Completed: ' + saved + ' / ' + plan.days.length + ' days (' + pct + '%)</span>' +
+                    '<div class="progress-bar"><div class="progress-fill" style="width:' + pct + '%;"></div></div>' +
+                    '<button class="btn btn-sm btn-gold" style="margin-top:6px;" onclick="markPlanDay(\'' + planKey +
+                    '\')">Mark Today as Complete</button>';
             }
 
             function markPlanDay(planKey) {
-                const plan = readingPlans[planKey];
-                const saved = readingPlanProgress[planKey] || 0;
+                var plan = readingPlans[planKey];
+                var saved = readingPlanProgress[planKey] || 0;
                 if (saved < plan.days.length) {
                     readingPlanProgress[planKey] = saved + 1;
                     setData('readingPlanProgress', readingPlanProgress);
@@ -1542,8 +2065,8 @@
 
             // ============ FAVORITE VERSES ============
             function saveFavoriteVerse() {
-                const text = document.getElementById('favVerseText').value.trim();
-                const ref = document.getElementById('favVerseRef').value.trim();
+                var text = document.getElementById('favVerseText').value.trim();
+                var ref = document.getElementById('favVerseRef').value.trim();
                 if (!text || !ref) { showToast('Please enter both verse text and reference.'); return; }
                 favoriteVerses.unshift({ id: Date.now(), text: sanitize(text), ref: sanitize(ref) });
                 setData('favoriteVerses', favoriteVerses);
@@ -1554,43 +2077,45 @@
             }
 
             function removeFavorite(id) {
-                favoriteVerses = favoriteVerses.filter(v => v.id !== id);
+                favoriteVerses = favoriteVerses.filter(function(v) { return v.id !== id; });
                 setData('favoriteVerses', favoriteVerses);
                 renderFavorites();
             }
 
             function renderFavorites() {
-                const container = document.getElementById('favoriteVersesList');
+                var container = document.getElementById('favoriteVersesList');
                 if (!container) return;
                 if (favoriteVerses.length === 0) {
-                    container.innerHTML = '<p style="color:var(--text2);">No favorite verses saved yet.</p>';
+                    container.innerHTML =
+                        '<div class="empty-state"><img src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/6.%20empty%20slate%20illustration.png" alt="Empty favorites" width="200" height="200" loading="lazy" /><p>No favorite verses saved yet.</p></div>';
                 } else {
-                    container.innerHTML = favoriteVerses.map(v => `
-                <div class="card" style="padding:12px 14px;">
-                  <p style="font-style:italic;">"${v.text}"</p>
-                  <p style="font-weight:700;color:var(--gold2);">— ${v.ref}</p>
-                  <button class="btn btn-sm btn-danger" onclick="removeFavorite(${v.id})">Remove</button>
-                </div>
-              `).join('');
+                    container.innerHTML = favoriteVerses.map(function(v) {
+                        return '<div class="card" style="padding:12px 14px;">' +
+                            '<p style="font-style:italic;">"' + v.text + '"</p>' +
+                            '<p style="font-weight:700;color:var(--gold2);">— ' + v.ref + '</p>' +
+                            '<button class="btn btn-sm btn-danger" onclick="removeFavorite(' + v.id +
+                            ')">Remove</button>' +
+                            '</div>';
+                    }).join('');
                 }
             }
 
             // ============ BIBLE QUIZ ============
             function startQuiz() {
-                const q = quizQuestions[Math.floor(Math.random() * quizQuestions.length)];
+                var q = quizQuestions[Math.floor(Math.random() * quizQuestions.length)];
                 currentQuizQ = q;
                 document.getElementById('quizQuestion').textContent = q.q;
-                document.getElementById('quizOptions').innerHTML = q.options.map((opt, i) => `
-              <button class="quiz-option" onclick="answerQuiz(${i})">${opt}</button>
-            `).join('');
+                document.getElementById('quizOptions').innerHTML = q.options.map(function(opt, i) {
+                    return '<button class="quiz-option" onclick="answerQuiz(' + i + ')">' + opt + '</button>';
+                }).join('');
                 document.getElementById('quizFeedback').textContent = '';
                 document.getElementById('quizScore').textContent = quizScoreTotal;
             }
 
             function answerQuiz(index) {
                 if (!currentQuizQ) return;
-                const buttons = document.querySelectorAll('.quiz-option');
-                buttons.forEach((btn, i) => {
+                var buttons = document.querySelectorAll('.quiz-option');
+                buttons.forEach(function(btn, i) {
                     btn.disabled = true;
                     if (i === currentQuizQ.correct) btn.classList.add('correct');
                     if (i === index && i !== currentQuizQ.correct) btn.classList.add('wrong');
@@ -1620,24 +2145,27 @@
 
             // ============ HABITS ============
             function renderHabits() {
-                const habitNames = { prayer: 'Prayer', bibleReading: 'Bible Reading', reflection: 'Reflection',
+                var habitNames = { prayer: 'Prayer', bibleReading: 'Bible Reading', reflection: 'Reflection',
                     gratitude: 'Gratitude' };
-                const habitIcons = {
-                    prayer: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1010 10A10 10 0 0012 2zm0 18a8 8 0 118-8 8 8 0 01-8 8z"/><path d="M12 6a1 1 0 011 1v4.59l2.7 2.7a1 1 0 01-1.4 1.42l-3-3A1 1 0 0111 12V7a1 1 0 011-1z"/></svg>',
-                    bibleReading: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>',
-                    reflection: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',
-                    gratitude: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>',
+                var habitIcons = {
+                    prayer: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1010 10A10 10 0 0012 2zm0 18a8 8 0 118-8 8 8 0 01-8 8z"/><path d="M12 6a1 1 0 011 1v4.59l2.7 2.7a1 1 0 01-1.4 1.42l-3-3A1 1 0 0111 12V7a1 1 0 011-1z"/></svg>',
+                    bibleReading: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>',
+                    reflection: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',
+                    gratitude: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>',
                 };
-                const container = document.getElementById('habitList');
+                var container = document.getElementById('habitList');
                 if (!container) return;
-                container.innerHTML = Object.keys(habitNames).map(key => `
-              <div class="habit-row">
-                <span style="display:flex;align-items:center;gap:8px;">${habitIcons[key]} ${habitNames[key]}</span>
-                <div class="check-circle${habits[key] ? ' checked' : ''}" onclick="toggleHabit('${key}')" role="checkbox" aria-checked="${habits[key]}" tabindex="0" aria-label="Toggle ${habitNames[key]}">
-                  ${habits[key] ? '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>' : ''}
-                </div>
-              </div>
-            `).join('');
+                container.innerHTML = Object.keys(habitNames).map(function(key) {
+                    return '<div class="habit-row">' +
+                        '<span style="display:flex;align-items:center;gap:8px;">' + habitIcons[key] + ' ' +
+                        habitNames[key] + '</span>' +
+                        '<div class="check-circle' + (habits[key] ? ' checked' : '') +
+                        '" onclick="toggleHabit(\'' + key +
+                        '\')" role="checkbox" aria-checked="' + habits[key] + '" tabindex="0" aria-label="Toggle ' +
+                        habitNames[key] + '">' +
+                        (habits[key] ? '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>' : '') +
+                        '</div></div>';
+                }).join('');
             }
 
             function toggleHabit(key) {
@@ -1650,25 +2178,29 @@
 
             // ============ DAILY CHECK-IN ============
             function renderCheckin() {
-                const questions = ['Did you pray today?', 'Did you read Scripture today?', 'What are you grateful for today?'];
+                var questions = ['Did you pray today?', 'Did you read Scripture today?',
+                    'What are you grateful for today?'
+                ];
                 document.getElementById('checkinQuestion').textContent = questions[Math.floor(Math.random() *
                     questions.length)];
-                document.getElementById('checkinOptions').innerHTML = `
-              <button class="btn btn-outline btn-sm" onclick="answerCheckin('Yes')">Yes</button>
-              <button class="btn btn-outline btn-sm" onclick="answerCheckin('No')">No</button>
-              <button class="btn btn-outline btn-sm" onclick="answerCheckin('Partially')">Partially</button>
-            `;
-                const historyEl = document.getElementById('checkinHistory');
+                document.getElementById('checkinOptions').innerHTML =
+                    '<button class="btn btn-outline btn-sm" onclick="answerCheckin(\'Yes\')">Yes</button>' +
+                    '<button class="btn btn-outline btn-sm" onclick="answerCheckin(\'No\')">No</button>' +
+                    '<button class="btn btn-outline btn-sm" onclick="answerCheckin(\'Partially\')">Partially</button>';
+                var historyEl = document.getElementById('checkinHistory');
                 if (historyEl && checkins.length > 0) {
-                    historyEl.innerHTML = '<strong>Recent Check-ins:</strong><br>' + checkins.slice(0, 5).map(c =>
-                        `${c.date}: ${c.answer} — "${c.gratitude || 'No gratitude entry'}"`
-                    ).join('<br>');
+                    historyEl.innerHTML = '<strong>Recent Check-ins:</strong><br>' + checkins.slice(0, 5).map(function(c) {
+                        return c.date + ': ' + c.answer + ' — "' + (c.gratitude || 'No gratitude entry') + '"';
+                    }).join('<br>');
+                } else if (historyEl) {
+                    historyEl.innerHTML =
+                        '<div class="empty-state" style="padding:12px 0;"><img src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/6.%20empty%20slate%20illustration.png" alt="Empty check-in" width="140" height="140" loading="lazy" /><p style="font-size:0.9rem;">No check-ins yet. Start your daily check-in above.</p></div>';
                 }
             }
 
             function answerCheckin(answer) {
-                const gratitude = document.getElementById('checkinGratitude').value.trim();
-                checkins.unshift({ answer, gratitude: sanitize(gratitude), date: todayStr });
+                var gratitude = document.getElementById('checkinGratitude').value.trim();
+                checkins.unshift({ answer: answer, gratitude: sanitize(gratitude), date: todayStr });
                 if (checkins.length > 50) checkins = checkins.slice(0, 50);
                 setData('checkins', checkins);
                 document.getElementById('checkinGratitude').value = '';
@@ -1677,7 +2209,7 @@
             }
 
             function submitCheckin() {
-                const gratitude = document.getElementById('checkinGratitude').value.trim();
+                var gratitude = document.getElementById('checkinGratitude').value.trim();
                 checkins.unshift({ answer: 'Check-in', gratitude: sanitize(gratitude), date: todayStr });
                 if (checkins.length > 50) checkins = checkins.slice(0, 50);
                 setData('checkins', checkins);
@@ -1691,7 +2223,7 @@
             function updateStats() {
                 document.getElementById('statTotalPrayers').textContent = prayers.length;
                 document.getElementById('statAnswered').textContent = answeredPrayers.length;
-                const totalChapters = readingLog.length;
+                var totalChapters = readingLog.length;
                 document.getElementById('statReadingProgress').textContent = Math.min(100, totalChapters * 2) + '%';
                 document.getElementById('statStreak').textContent = calculateStreak();
                 document.getElementById('statDaysActive').textContent = activeDays.length;
@@ -1699,13 +2231,13 @@
             }
 
             function calculateStreak() {
-                let streak = 0;
-                const sorted = [...activeDays].sort().reverse();
+                var streak = 0;
+                var sorted = activeDays.slice().sort().reverse();
                 if (sorted.length === 0) return 0;
-                const today = new Date(todayStr);
-                for (let i = 0; i < sorted.length; i++) {
-                    const checkDate = new Date(sorted[i]);
-                    const expectedDate = new Date(today);
+                var today = new Date(todayStr);
+                for (var i = 0; i < sorted.length; i++) {
+                    var checkDate = new Date(sorted[i]);
+                    var expectedDate = new Date(today);
                     expectedDate.setDate(expectedDate.getDate() - i);
                     if (checkDate.toISOString().split('T')[0] === expectedDate.toISOString().split('T')[0]) {
                         streak++;
@@ -1724,23 +2256,23 @@
 
             // ============ EXPORT / IMPORT ============
             function exportData() {
-                const data = {
-                    prayers,
-                    answeredPrayers,
-                    reflections,
-                    readingLog,
-                    readingPlanProgress,
-                    favoriteVerses,
-                    habits,
-                    habitDate,
-                    checkins,
-                    quizScoreTotal,
-                    activeDays,
+                var data = {
+                    prayers: prayers,
+                    answeredPrayers: answeredPrayers,
+                    reflections: reflections,
+                    readingLog: readingLog,
+                    readingPlanProgress: readingPlanProgress,
+                    favoriteVerses: favoriteVerses,
+                    habits: habits,
+                    habitDate: habitDate,
+                    checkins: checkins,
+                    quizScoreTotal: quizScoreTotal,
+                    activeDays: activeDays,
                     version: APP_VERSION,
                 };
-                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
+                var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                var url = URL.createObjectURL(blob);
+                var a = document.createElement('a');
                 a.href = url;
                 a.download = 'faith-journal-backup-' + todayStr + '.json';
                 a.click();
@@ -1749,12 +2281,12 @@
             }
 
             function importData(event) {
-                const file = event.target.files[0];
+                var file = event.target.files[0];
                 if (!file) return;
-                const reader = new FileReader();
+                var reader = new FileReader();
                 reader.onload = function(e) {
                     try {
-                        const data = JSON.parse(e.target.result);
+                        var data = JSON.parse(e.target.result);
                         if (data.prayers) { prayers = data.prayers;
                             setData('prayers', prayers); }
                         if (data.answeredPrayers) { answeredPrayers = data.answeredPrayers;
@@ -1780,7 +2312,7 @@
                         showToast('Data imported successfully! Refreshing...');
                         renderAll();
                         updateStats();
-                    } catch (err) {
+                    } catch (_) {
                         showToast('Error importing data. Invalid file format.');
                     }
                 };
@@ -1789,8 +2321,8 @@
             }
 
             function clearAllData() {
-                const keys = Object.keys(localStorage).filter(k => k.startsWith('faith_journal_'));
-                keys.forEach(k => localStorage.removeItem(k));
+                var keys = Object.keys(localStorage).filter(function(k) { return k.startsWith('faith_journal_'); });
+                keys.forEach(function(k) { localStorage.removeItem(k); });
                 prayers = [];
                 answeredPrayers = [];
                 reflections = [];
@@ -1834,39 +2366,35 @@
 
             // ============ PWA & INSTALL ============
             function setupPWA() {
-                // Register service worker from static file
                 if ('serviceWorker' in navigator && location.protocol === 'https:') {
                     navigator.serviceWorker.register('sw.js')
-                        .then(() => console.log('Service Worker registered'))
-                        .catch(err => console.warn('SW registration failed:', err));
+                        .then(function() { console.log('Service Worker registered'); })
+                        .catch(function(err) { console.warn('SW registration failed:', err); });
                 }
 
-                // Listen for install prompt
-                window.addEventListener('beforeinstallprompt', (e) => {
+                window.addEventListener('beforeinstallprompt', function(e) {
                     e.preventDefault();
                     deferredPrompt = e;
                     document.getElementById('installBtn').classList.remove('hidden');
                 });
 
-                window.addEventListener('appinstalled', () => {
+                window.addEventListener('appinstalled', function() {
                     document.getElementById('installBtn').classList.add('hidden');
                     deferredPrompt = null;
                     showToast('Faith Journal installed successfully!');
                 });
 
-                // Check if already installed
                 if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) {
                     document.getElementById('installBtn').classList.add('hidden');
                 }
 
-                // Show install help for unsupported browsers
                 updateInstallHelp();
             }
 
             function triggerInstall() {
                 if (deferredPrompt) {
                     deferredPrompt.prompt();
-                    deferredPrompt.userChoice.then((choiceResult) => {
+                    deferredPrompt.userChoice.then(function(choiceResult) {
                         if (choiceResult.outcome === 'accepted') {
                             showToast('Thank you for installing Faith Journal!');
                             document.getElementById('installBtn').classList.add('hidden');
@@ -1874,20 +2402,20 @@
                         deferredPrompt = null;
                     });
                 } else {
-                    // Show manual instructions
                     updateInstallHelp(true);
                 }
             }
 
-            function updateInstallHelp(show = false) {
-                const helpEl = document.getElementById('installHelpText');
+            function updateInstallHelp(show) {
+                show = show || false;
+                var helpEl = document.getElementById('installHelpText');
                 if (!helpEl) return;
-                const ua = navigator.userAgent;
-                const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator
+                var ua = navigator.userAgent;
+                var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator
                     .maxTouchPoints > 1);
-                const isSafari = /Safari/.test(ua) && !/Chrome/.test(ua);
-                const isAndroid = /Android/.test(ua);
-                const isDesktop = !isIOS && !isAndroid;
+                var isSafari = /Safari/.test(ua) && !/Chrome/.test(ua);
+                var isAndroid = /Android/.test(ua);
+                var isDesktop = !isIOS && !isAndroid;
 
                 if (show || !deferredPrompt) {
                     helpEl.style.display = 'block';
@@ -1915,9 +2443,20 @@
                     showToast('You are offline. Data is saved locally and will sync when you reconnect.');
                 }
             }
-            window.addEventListener('online', () => showToast('Back online!'));
+            window.addEventListener('online', function() { showToast('Back online!'); });
             window.addEventListener('offline', updateOnlineStatus);
             if (!navigator.onLine) updateOnlineStatus();
+
+            // ============ SPLASH SCREEN ============
+            function hideSplash() {
+                var splash = document.getElementById('splashScreen');
+                if (splash) {
+                    splash.classList.add('hidden');
+                    setTimeout(function() {
+                        splash.style.display = 'none';
+                    }, 800);
+                }
+            }
 
             // ============ INITIALIZATION ============
             function init() {
@@ -1928,29 +2467,30 @@
                 renderAll();
                 updateStats();
                 setupPWA();
-                // Start quiz if on study tab
                 if (document.getElementById('quizQuestion') && !document.getElementById('quizQuestion').textContent) {
                     startQuiz();
                 }
-                // Set initial habit date if needed
                 if (!habitDate) {
                     habitDate = todayStr;
                     setData('habitDate', habitDate);
                     setData('habits', habits);
                 }
-                // Keyboard navigation for check circles
+
                 document.addEventListener('keydown', function(e) {
                     if (e.key === 'Enter' || e.key === ' ') {
-                        const focused = document.activeElement;
+                        var focused = document.activeElement;
                         if (focused && focused.classList.contains('check-circle')) {
                             e.preventDefault();
                             focused.click();
                         }
                     }
                 });
+
+                // Hide splash after a short delay
+                setTimeout(hideSplash, 700);
             }
 
-            // Expose functions to global scope for onclick handlers
+            // Expose functions to global scope
             window.showTab = showTab;
             window.acceptCookies = acceptCookies;
             window.declineCookies = declineCookies;
@@ -1979,9 +2519,11 @@
             window.triggerInstall = triggerInstall;
             window.renderPrayers = renderPrayers;
 
+            // Init
             init();
             console.log('Faith Journal v' + APP_VERSION + ' initialized successfully.');
         })();
     </script>
+
 </body>
 </html>
