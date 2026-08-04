@@ -30,7 +30,15 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
+// Modified fetch handler: bypass cache for Supabase requests
 self.addEventListener('fetch', event => {
+  const url = new URL(event.request.url);
+  // If the request is to Supabase, always go to network
+  if (url.hostname.includes('supabase.co')) {
+    event.respondWith(fetch(event.request));
+    return;
+  }
+  // Otherwise, try cache first, fallback to network
   event.respondWith(
     caches.match(event.request)
       .then(response => response || fetch(event.request))
