@@ -33,7 +33,7 @@ self.addEventListener('activate', event => {
 // Modified fetch handler: bypass cache for Supabase requests
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
-  // If the request is to Supabase, always go to network
+  // If the request is to Supabase, always go to network (no cache)
   if (url.hostname.includes('supabase.co')) {
     event.respondWith(fetch(event.request));
     return;
