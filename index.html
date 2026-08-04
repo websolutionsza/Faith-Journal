@@ -16,8 +16,7 @@
     <link rel="manifest" href="manifest.json" />
 
     <!-- Lucide Icons (modern icon library) -->
-    <script src="https://cdn.jsdelivr.net/npm/lucide@0.344.0/dist/umd/lucide.min.js" defer>
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.344.0/dist/umd/lucide.min.js" defer></script>
 
     <!-- Supabase Client SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
@@ -550,14 +549,55 @@
             font-size: clamp(0.85rem, 1.3vw, 0.9rem);
         }
 
-        /* ===== AUTH ===== */
-        .auth-container {
-            max-width: 480px;
-            margin: 0 auto;
-            width: 100%;
+        /* ===== AUTH CONTAINER ===== */
+        #auth-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            padding: 20px;
         }
 
-        .auth-tabs {
+        #auth-container .auth-box {
+            max-width: 440px;
+            width: 100%;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px 28px;
+            box-shadow: var(--shadow2);
+        }
+
+        #auth-container .auth-box .auth-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        #auth-container .auth-box .auth-logo img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--gold2);
+            margin-bottom: 14px;
+        }
+
+        #auth-container .auth-box .auth-logo h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(1.5rem, 3.5vw, 2rem);
+            color: var(--primary);
+            letter-spacing: 0.5px;
+        }
+
+        #auth-container .auth-box .auth-logo p {
+            color: var(--text2);
+            font-size: clamp(0.9rem, 1.4vw, 1rem);
+            margin-top: 4px;
+        }
+
+        #auth-container .auth-tabs {
             display: flex;
             gap: 4px;
             margin-bottom: 20px;
@@ -565,7 +605,7 @@
             padding-bottom: 4px;
         }
 
-        .auth-tabs button {
+        #auth-container .auth-tabs button {
             background: transparent;
             border: none;
             padding: 10px 20px;
@@ -579,36 +619,36 @@
             min-height: 44px;
         }
 
-        .auth-tabs button:hover {
+        #auth-container .auth-tabs button:hover {
             color: var(--primary);
             background: var(--accent-warm);
         }
 
-        .auth-tabs button.active-tab {
+        #auth-container .auth-tabs button.active-tab {
             color: var(--primary);
             border-bottom: 3px solid var(--gold2);
             background: transparent;
         }
 
-        .dark .auth-tabs button.active-tab {
+        .dark #auth-container .auth-tabs button.active-tab {
             color: var(--gold2);
             border-bottom-color: var(--gold2);
         }
 
-        .auth-form {
+        #auth-container .auth-form {
             display: none;
             animation: fadeIn 0.3s ease;
         }
 
-        .auth-form.active-form {
+        #auth-container .auth-form.active-form {
             display: block;
         }
 
-        .auth-form .form-group {
+        #auth-container .auth-form .form-group {
             margin-bottom: 16px;
         }
 
-        .auth-form .form-group label {
+        #auth-container .auth-form .form-group label {
             display: block;
             margin-bottom: 5px;
             font-weight: 600;
@@ -616,7 +656,7 @@
             font-size: clamp(0.85rem, 1.2vw, 0.9rem);
         }
 
-        .auth-form .form-group input {
+        #auth-container .auth-form .form-group input {
             width: 100%;
             padding: 11px 15px;
             border: 1px solid var(--border);
@@ -629,7 +669,7 @@
             min-height: 48px;
         }
 
-        .auth-form .form-group input:focus {
+        #auth-container .auth-form .form-group input:focus {
             outline: none;
             border-color: var(--gold2);
             box-shadow: 0 0 0 3px rgba(183, 147, 90, 0.15);
@@ -656,32 +696,6 @@
             font-size: 0.85rem;
             border-top: 1px solid var(--border);
             margin-top: 16px;
-        }
-
-        .auth-user-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 16px;
-            background: var(--accent-warm);
-            border-radius: var(--radius2);
-            margin-bottom: 16px;
-            flex-wrap: wrap;
-        }
-
-        .auth-user-info .user-email {
-            font-weight: 600;
-            color: var(--primary);
-            word-break: break-all;
-        }
-
-        .auth-user-info .user-badge {
-            background: var(--gold2);
-            color: #1a1d23;
-            padding: 2px 12px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 600;
         }
 
         /* ===== HERO ===== */
@@ -1181,12 +1195,8 @@
                 width: 80px;
                 height: 80px;
             }
-            .auth-container {
-                max-width: 100%;
-            }
-            .auth-tabs button {
-                padding: 8px 14px;
-                font-size: 0.85rem;
+            #auth-container .auth-box {
+                padding: 24px 18px;
             }
         }
 
@@ -1254,12 +1264,15 @@
                 width: 16px;
                 height: 16px;
             }
-            .auth-tabs button {
-                padding: 6px 10px;
-                font-size: 0.78rem;
+            #auth-container .auth-box {
+                padding: 20px 14px;
+            }
+            #auth-container .auth-tabs button {
+                padding: 6px 12px;
+                font-size: 0.8rem;
                 min-height: 36px;
             }
-            .auth-form .form-group input {
+            #auth-container .auth-form .form-group input {
                 min-height: 40px;
                 padding: 8px 12px;
                 font-size: 0.85rem;
@@ -1363,6 +1376,33 @@
         .hidden {
             display: none !important;
         }
+
+        /* ===== ACCOUNT BADGE IN NAV ===== */
+        .nav-account-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: clamp(0.7rem, 1.2vw, 0.8rem);
+            color: var(--text2);
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: var(--accent-warm);
+            border: 1px solid var(--border);
+            cursor: default;
+            white-space: nowrap;
+        }
+
+        .nav-account-badge .user-email-short {
+            font-weight: 600;
+            color: var(--primary);
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .dark .nav-account-badge .user-email-short {
+            color: var(--gold2);
+        }
     </style>
 </head>
 
@@ -1405,7 +1445,7 @@
     </div>
 
     <!-- ===== NAVIGATION ===== -->
-    <nav class="nav" role="navigation" aria-label="Main navigation">
+    <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
         <a class="nav-logo" href="#" onclick="showTab('home')" aria-label="Faith Journal Home">
             <img
             src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/WhatsApp%20Image%202026-06-19%20at%2010.59.51.png"
@@ -1424,6 +1464,11 @@
             <button onclick="showTab('more')" role="tab" aria-selected="false" id="tab-more">More</button>
         </div>
         <div class="nav-actions">
+            <div class="nav-account-badge hidden" id="navAccountBadge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span class="user-email-short" id="navUserEmail">user</span>
+                <button class="btn btn-sm btn-danger" style="padding:2px 10px;min-height:28px;min-width:28px;font-size:0.7rem;border-radius:14px;" onclick="handleSignOut()">Sign Out</button>
+            </div>
             <button class="install-btn hidden" id="installBtn" onclick="triggerInstall()" aria-label="Install App" title="Install App">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 Install
@@ -1440,30 +1485,20 @@
     <!-- ===== MAIN CONTENT ===== -->
     <main class="container" id="mainContent">
 
-        <!-- ===== AUTH SECTION (visible when not authenticated) ===== -->
-        <div id="authSection" class="hidden">
-            <div class="hero" style="padding-bottom:10px;">
-                <div class="hero-banner">
+        <!-- ===== AUTH CONTAINER (shown when logged out) ===== -->
+        <div id="auth-container">
+            <div class="auth-box">
+                <div class="auth-logo">
                     <img
-                    src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/1.%20Hero%20Banner%20(Home%20Screen).png"
-                    alt="Serene sunrise over open Bible"
-                    width="1200"
-                    height="400"
-                    loading="eager"
+                    src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/WhatsApp%20Image%202026-06-19%20at%2010.59.51.png"
+                    alt="Faith Journal Logo"
+                    width="80"
+                    height="80"
                     />
+                    <h1>Faith Journal</h1>
+                    <p>Sign in to continue</p>
                 </div>
-                <img
-                src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/WhatsApp%20Image%202026-06-19%20at%2010.59.51.png"
-                alt="Faith Journal Logo"
-                class="hero-logo"
-                width="90"
-                height="90"
-                />
-                <h1>Faith Journal</h1>
-                <p>Sign in to continue your spiritual journey. Create an account or log in to access your prayers, reflections, and habits.</p>
-            </div>
 
-            <div class="auth-container card" style="margin-top:0;">
                 <div class="auth-tabs" role="tablist">
                     <button class="active-tab" data-auth-tab="signin" onclick="switchAuthTab('signin')" role="tab" aria-selected="true">Sign In</button>
                     <button data-auth-tab="signup" onclick="switchAuthTab('signup')" role="tab" aria-selected="false">Create Account</button>
@@ -1510,7 +1545,7 @@
             </div>
         </div>
 
-        <!-- ===== APP CONTENT (visible when authenticated) ===== -->
+        <!-- ===== APP CONTENT (shown when authenticated) ===== -->
         <div id="appContent" class="hidden">
 
             <!-- ===== HOME TAB ===== -->
@@ -1741,21 +1776,6 @@
 
             <!-- ===== MORE TAB ===== -->
             <div class="tab-content" id="tabContent-more" role="tabpanel">
-                <!-- Account Management -->
-                <div class="card" id="accountSection">
-                    <h2>
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                        My Account
-                    </h2>
-                    <div id="accountInfo">
-                        <div class="auth-user-info">
-                            <span class="user-email" id="userEmailDisplay">Loading...</span>
-                            <span class="user-badge">Signed In</span>
-                        </div>
-                        <button class="btn btn-danger btn-sm" onclick="handleSignOut()">Sign Out</button>
-                    </div>
-                </div>
-
                 <div class="card">
                     <h2>
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
@@ -1811,13 +1831,18 @@
                     <p style="color:var(--text2);">For inquiries, visit our website:</p>
                     <a href="https://websolutionsza.github.io/websolutionsSA/" target="_blank" rel="noopener" class="btn btn-gold btn-sm" style="margin-top:6px;">Visit WebsolutionsSA</a>
                 </div>
+
+                <!-- Sign Out button in More tab -->
+                <div class="card" style="text-align:center;">
+                    <button class="btn btn-danger" onclick="handleSignOut()" style="width:100%;">Sign Out</button>
+                </div>
             </div>
         </div>
         <!-- end appContent -->
     </main>
 
     <!-- ===== FOOTER ===== -->
-    <footer class="site-footer">
+    <footer class="site-footer" id="mainFooter">
         <div class="footer-links">
             <button onclick="showTab('more');document.getElementById('privacySection')?.scrollIntoView({behavior:'smooth'});">Privacy Notice</button>
             <button onclick="showTab('more');document.getElementById('privacySection')?.scrollIntoView({behavior:'smooth'});">Disclaimer</button>
@@ -1838,7 +1863,8 @@
             'use strict';
 
             // ============ SUPABASE CONFIGURATION ============
-            // Replace these with your own Supabase project credentials.
+            // IMPORTANT: Replace these with your own Supabase project credentials.
+            // Get them from your Supabase dashboard: Settings > API
             const SUPABASE_URL = 'SUPABASE_URL';
             const SUPABASE_ANON_KEY = 'SUPABASE_ANON_KEY';
 
@@ -1846,14 +1872,16 @@
             let supabaseClient = null;
             let currentUser = null;
 
+            // Safely initialize the Supabase client
             try {
-                if (typeof supabase !== 'undefined' && supabase.createClient) {
-                    supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
+                    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                    console.log('Supabase client initialized successfully.');
                 } else {
                     console.warn('Supabase SDK not loaded. Auth features will not work.');
                 }
-            } catch (_) {
-                console.warn('Failed to initialize Supabase client.');
+            } catch (err) {
+                console.warn('Failed to initialize Supabase client:', err);
             }
 
             // ============ APP STATE ============
@@ -2085,14 +2113,15 @@
 
             // ============ AUTH UI HELPERS ============
             function switchAuthTab(tab) {
-                document.querySelectorAll('.auth-tabs button').forEach(function(btn) {
+                document.querySelectorAll('#auth-container .auth-tabs button').forEach(function(btn) {
                     btn.classList.remove('active-tab');
                     btn.setAttribute('aria-selected', 'false');
                 });
-                document.querySelectorAll('.auth-form').forEach(function(form) {
+                document.querySelectorAll('#auth-container .auth-form').forEach(function(form) {
                     form.classList.remove('active-form');
                 });
-                const tabBtn = document.querySelector('[data-auth-tab="' + tab + '"]');
+                const tabBtn = document.querySelector('#auth-container .auth-tabs button[data-auth-tab="' + tab +
+                    '"]');
                 if (tabBtn) {
                     tabBtn.classList.add('active-tab');
                     tabBtn.setAttribute('aria-selected', 'true');
@@ -2106,26 +2135,39 @@
                 document.getElementById('signupSuccess').textContent = '';
             }
 
-            // ============ AUTH FUNCTIONS ============
+            // ============ AUTH STATE MANAGEMENT ============
             function setAuthUI(authenticated, user) {
-                const authSection = document.getElementById('authSection');
+                const authContainer = document.getElementById('auth-container');
                 const appContent = document.getElementById('appContent');
-                const accountInfo = document.getElementById('accountInfo');
+                const mainNav = document.getElementById('mainNav');
+                const mainFooter = document.getElementById('mainFooter');
+                const navBadge = document.getElementById('navAccountBadge');
+                const navUserEmail = document.getElementById('navUserEmail');
 
                 if (authenticated && user) {
-                    authSection.classList.add('hidden');
+                    // Show app, hide auth
+                    authContainer.classList.add('hidden');
                     appContent.classList.remove('hidden');
+                    mainNav.classList.remove('hidden');
+                    mainFooter.classList.remove('hidden');
                     currentUser = user;
-                    document.getElementById('userEmailDisplay').textContent = user.email || 'Signed in';
-                    // Show the account section in More tab
-                    document.getElementById('accountSection').style.display = 'block';
+
+                    // Update nav badge
+                    navBadge.classList.remove('hidden');
+                    const email = user.email || 'user';
+                    navUserEmail.textContent = email.length > 20 ? email.substring(0, 18) + '…' : email;
+
                     // Re-render app content
                     renderAll();
                 } else {
-                    authSection.classList.remove('hidden');
+                    // Show auth, hide app
+                    authContainer.classList.remove('hidden');
                     appContent.classList.add('hidden');
+                    mainNav.classList.add('hidden');
+                    mainFooter.classList.add('hidden');
                     currentUser = null;
-                    document.getElementById('accountSection').style.display = 'block';
+                    navBadge.classList.add('hidden');
+
                     // Reset auth forms
                     document.getElementById('signinEmail').value = '';
                     document.getElementById('signinPassword').value = '';
@@ -2139,6 +2181,7 @@
                 }
             }
 
+            // ============ AUTH FUNCTIONS ============
             async function handleSignIn(event) {
                 event.preventDefault();
                 const email = document.getElementById('signinEmail').value.trim();
@@ -2262,6 +2305,8 @@
                     }
                     showToast('Signed out successfully.');
                     setAuthUI(false, null);
+                    // Reset to home tab
+                    showTab('home');
                 } catch (err) {
                     showToast('Error signing out.');
                     console.error('Sign out error:', err);
@@ -2270,7 +2315,7 @@
 
             async function checkAuthSession() {
                 if (!supabaseClient) {
-                    console.warn('Supabase client not available. Auth disabled.');
+                    console.warn('Supabase client not available. Showing auth screen.');
                     setAuthUI(false, null);
                     return;
                 }
@@ -2300,6 +2345,7 @@
                         renderAll();
                     } else if (event === 'SIGNED_OUT') {
                         setAuthUI(false, null);
+                        showTab('home');
                     } else if (event === 'TOKEN_REFRESHED' && session && session.user) {
                         // Session refreshed, keep UI as is
                         if (!currentUser) {
@@ -2959,18 +3005,16 @@
             // ============ INITIALIZATION ============
             function init() {
                 document.getElementById('currentYear').textContent = new Date().getFullYear();
-                displayDailyVerse();
-                showMotivational();
-                showRandomEncouragement();
 
-                // Initialize auth state first, then render
+                // Check auth session first
                 checkAuthSession().then(function() {
+                    // If user is already logged in, render everything
                     if (currentUser) {
                         renderAll();
                     }
                 });
 
-                // Still render data for when auth is restored
+                // Pre-render data for when auth is restored
                 renderAll();
 
                 updateStats();
