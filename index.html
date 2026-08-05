@@ -18,10 +18,6 @@
     <!-- Lucide Icons (modern icon library) -->
     <script src="https://cdn.jsdelivr.net/npm/lucide@0.344.0/dist/umd/lucide.min.js" defer></script>
 
-    <!-- Supabase Client SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
-    </script>
-
     <style>
         /* ===== CSS VARIABLES ===== */
         :root {
@@ -510,8 +506,6 @@
         input[type="text"],
         input[type="search"],
         input[type="number"],
-        input[type="email"],
-        input[type="password"],
         textarea,
         select {
             width: 100%;
@@ -547,155 +541,6 @@
             margin-bottom: 5px;
             color: var(--text);
             font-size: clamp(0.85rem, 1.3vw, 0.9rem);
-        }
-
-        /* ===== AUTH CONTAINER ===== */
-        #auth-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 80vh;
-            padding: 20px;
-        }
-
-        #auth-container .auth-box {
-            max-width: 440px;
-            width: 100%;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 32px 28px;
-            box-shadow: var(--shadow2);
-        }
-
-        #auth-container .auth-box .auth-logo {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-
-        #auth-container .auth-box .auth-logo img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--gold2);
-            margin-bottom: 14px;
-        }
-
-        #auth-container .auth-box .auth-logo h1 {
-            font-family: var(--font-heading);
-            font-size: clamp(1.5rem, 3.5vw, 2rem);
-            color: var(--primary);
-            letter-spacing: 0.5px;
-        }
-
-        #auth-container .auth-box .auth-logo p {
-            color: var(--text2);
-            font-size: clamp(0.9rem, 1.4vw, 1rem);
-            margin-top: 4px;
-        }
-
-        #auth-container .auth-tabs {
-            display: flex;
-            gap: 4px;
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 4px;
-        }
-
-        #auth-container .auth-tabs button {
-            background: transparent;
-            border: none;
-            padding: 10px 20px;
-            font-family: var(--font);
-            font-size: clamp(0.9rem, 1.4vw, 1rem);
-            font-weight: 600;
-            color: var(--text2);
-            cursor: pointer;
-            border-radius: var(--radius2) var(--radius2) 0 0;
-            transition: all var(--transition);
-            min-height: 44px;
-        }
-
-        #auth-container .auth-tabs button:hover {
-            color: var(--primary);
-            background: var(--accent-warm);
-        }
-
-        #auth-container .auth-tabs button.active-tab {
-            color: var(--primary);
-            border-bottom: 3px solid var(--gold2);
-            background: transparent;
-        }
-
-        .dark #auth-container .auth-tabs button.active-tab {
-            color: var(--gold2);
-            border-bottom-color: var(--gold2);
-        }
-
-        #auth-container .auth-form {
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-
-        #auth-container .auth-form.active-form {
-            display: block;
-        }
-
-        #auth-container .auth-form .form-group {
-            margin-bottom: 16px;
-        }
-
-        #auth-container .auth-form .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: var(--text);
-            font-size: clamp(0.85rem, 1.2vw, 0.9rem);
-        }
-
-        #auth-container .auth-form .form-group input {
-            width: 100%;
-            padding: 11px 15px;
-            border: 1px solid var(--border);
-            border-radius: var(--radius2);
-            font-family: var(--font);
-            font-size: clamp(0.9rem, 1.4vw, 0.95rem);
-            background: var(--card2);
-            color: var(--text);
-            transition: all var(--transition);
-            min-height: 48px;
-        }
-
-        #auth-container .auth-form .form-group input:focus {
-            outline: none;
-            border-color: var(--gold2);
-            box-shadow: 0 0 0 3px rgba(183, 147, 90, 0.15);
-        }
-
-        .auth-error {
-            color: var(--danger);
-            font-size: 0.85rem;
-            margin-top: 6px;
-            min-height: 1.4em;
-        }
-
-        .auth-success {
-            color: var(--success);
-            font-size: 0.85rem;
-            margin-top: 6px;
-            min-height: 1.4em;
-        }
-
-        .auth-divider {
-            text-align: center;
-            padding: 12px 0;
-            color: var(--text2);
-            font-size: 0.85rem;
-            border-top: 1px solid var(--border);
-            margin-top: 16px;
         }
 
         /* ===== HERO ===== */
@@ -1195,9 +1040,6 @@
                 width: 80px;
                 height: 80px;
             }
-            #auth-container .auth-box {
-                padding: 24px 18px;
-            }
         }
 
         @media (max-width: 480px) {
@@ -1263,19 +1105,6 @@
             .icon-btn svg {
                 width: 16px;
                 height: 16px;
-            }
-            #auth-container .auth-box {
-                padding: 20px 14px;
-            }
-            #auth-container .auth-tabs button {
-                padding: 6px 12px;
-                font-size: 0.8rem;
-                min-height: 36px;
-            }
-            #auth-container .auth-form .form-group input {
-                min-height: 40px;
-                padding: 8px 12px;
-                font-size: 0.85rem;
             }
         }
 
@@ -1371,38 +1200,6 @@
             align-items: center;
             justify-content: center;
         }
-
-        /* ===== HIDDEN UTILITY ===== */
-        .hidden {
-            display: none !important;
-        }
-
-        /* ===== ACCOUNT BADGE IN NAV ===== */
-        .nav-account-badge {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: clamp(0.7rem, 1.2vw, 0.8rem);
-            color: var(--text2);
-            padding: 4px 10px;
-            border-radius: 20px;
-            background: var(--accent-warm);
-            border: 1px solid var(--border);
-            cursor: default;
-            white-space: nowrap;
-        }
-
-        .nav-account-badge .user-email-short {
-            font-weight: 600;
-            color: var(--primary);
-            max-width: 120px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .dark .nav-account-badge .user-email-short {
-            color: var(--gold2);
-        }
     </style>
 </head>
 
@@ -1445,7 +1242,7 @@
     </div>
 
     <!-- ===== NAVIGATION ===== -->
-    <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
         <a class="nav-logo" href="#" onclick="showTab('home')" aria-label="Faith Journal Home">
             <img
             src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/WhatsApp%20Image%202026-06-19%20at%2010.59.51.png"
@@ -1464,11 +1261,6 @@
             <button onclick="showTab('more')" role="tab" aria-selected="false" id="tab-more">More</button>
         </div>
         <div class="nav-actions">
-            <div class="nav-account-badge hidden" id="navAccountBadge">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                <span class="user-email-short" id="navUserEmail">user</span>
-                <button class="btn btn-sm btn-danger" style="padding:2px 10px;min-height:28px;min-width:28px;font-size:0.7rem;border-radius:14px;" onclick="handleSignOut()">Sign Out</button>
-            </div>
             <button class="install-btn hidden" id="installBtn" onclick="triggerInstall()" aria-label="Install App" title="Install App">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 Install
@@ -1485,364 +1277,294 @@
     <!-- ===== MAIN CONTENT ===== -->
     <main class="container" id="mainContent">
 
-        <!-- ===== AUTH CONTAINER (shown when logged out) ===== -->
-        <div id="auth-container">
-            <div class="auth-box">
-                <div class="auth-logo">
+        <!-- ===== HOME TAB ===== -->
+        <div class="tab-content active" id="tabContent-home" role="tabpanel">
+            <section class="hero">
+                <!-- Hero Banner Image -->
+                <div class="hero-banner">
                     <img
-                    src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/WhatsApp%20Image%202026-06-19%20at%2010.59.51.png"
-                    alt="Faith Journal Logo"
-                    width="80"
-                    height="80"
+                    src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/1.%20Hero%20Banner%20(Home%20Screen).png"
+                    alt="Serene sunrise over open Bible"
+                    width="1200"
+                    height="400"
+                    loading="eager"
                     />
-                    <h1>Faith Journal</h1>
-                    <p>Sign in to continue</p>
                 </div>
+                <img
+                src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/WhatsApp%20Image%202026-06-19%20at%2010.59.51.png"
+                alt="Faith Journal Logo"
+                class="hero-logo"
+                width="90"
+                height="90"
+                />
+                <h1>Faith Journal</h1>
+                <p>Your companion for prayer, Bible study, reflection, and spiritual growth. Track your journey, build lasting habits, and grow closer to God each day.</p>
+                <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+                    <button class="btn btn-primary" onclick="showTab('journal')">Start Journaling</button>
+                    <button class="btn btn-gold" onclick="showTab('study')">Bible Study Tools</button>
+                </div>
+            </section>
 
-                <div class="auth-tabs" role="tablist">
-                    <button class="active-tab" data-auth-tab="signin" onclick="switchAuthTab('signin')" role="tab" aria-selected="true">Sign In</button>
-                    <button data-auth-tab="signup" onclick="switchAuthTab('signup')" role="tab" aria-selected="false">Create Account</button>
-                </div>
+            <!-- Daily Verse -->
+            <div class="card" id="dailyVerseCard">
+                <h2>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                    Daily Bible Verse
+                </h2>
+                <blockquote id="dailyVerseText" style="font-family:var(--font-heading);font-size:clamp(1.05rem,2.2vw,1.2rem);font-style:italic;margin:12px 0;color:var(--primary);line-height:1.6;">Loading...</blockquote>
+                <p id="dailyVerseRef" style="font-weight:700;color:var(--gold2);"></p>
+                <div id="dailyVerseReflection" style="background:var(--accent-warm);padding:14px;border-radius:var(--radius2);margin:10px 0;font-size:clamp(0.85rem,1.2vw,0.9rem);color:var(--text2);"></div>
+                <button class="btn btn-outline btn-sm" onclick="getNewDailyVerse()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+                    Show Another Verse
+                </button>
+            </div>
 
-                <!-- Sign In Form -->
-                <div class="auth-form active-form" id="authFormSignIn" role="tabpanel">
-                    <form id="signinForm" onsubmit="return handleSignIn(event)">
-                        <div class="form-group">
-                            <label for="signinEmail">Email Address</label>
-                            <input type="email" id="signinEmail" placeholder="you@example.com" required autocomplete="email" />
-                        </div>
-                        <div class="form-group">
-                            <label for="signinPassword">Password</label>
-                            <input type="password" id="signinPassword" placeholder="Enter your password" required autocomplete="current-password" />
-                        </div>
-                        <div id="signinError" class="auth-error"></div>
-                        <button type="submit" class="btn btn-primary" style="width:100%;">Sign In</button>
-                    </form>
-                    <div class="auth-divider">Don't have an account? Create one above.</div>
-                </div>
-
-                <!-- Sign Up Form -->
-                <div class="auth-form" id="authFormSignUp" role="tabpanel">
-                    <form id="signupForm" onsubmit="return handleSignUp(event)">
-                        <div class="form-group">
-                            <label for="signupEmail">Email Address</label>
-                            <input type="email" id="signupEmail" placeholder="you@example.com" required autocomplete="email" />
-                        </div>
-                        <div class="form-group">
-                            <label for="signupPassword">Password</label>
-                            <input type="password" id="signupPassword" placeholder="Min 6 characters" required autocomplete="new-password" minlength="6" />
-                        </div>
-                        <div class="form-group">
-                            <label for="signupConfirm">Confirm Password</label>
-                            <input type="password" id="signupConfirm" placeholder="Confirm your password" required autocomplete="new-password" />
-                        </div>
-                        <div id="signupError" class="auth-error"></div>
-                        <div id="signupSuccess" class="auth-success"></div>
-                        <button type="submit" class="btn btn-gold" style="width:100%;">Create Account</button>
-                    </form>
-                    <div class="auth-divider">Already have an account? Sign in above.</div>
-                </div>
+            <!-- Motivational Reminder -->
+            <div class="card" style="text-align:center;border-left:4px solid var(--gold2);">
+                <p id="motivationalMsg" style="font-family:var(--font-heading);font-size:clamp(1rem,1.8vw,1.1rem);color:var(--primary);"></p>
             </div>
         </div>
 
-        <!-- ===== APP CONTENT (shown when authenticated) ===== -->
-        <div id="appContent" class="hidden">
+        <!-- ===== JOURNAL TAB ===== -->
+        <div class="tab-content" id="tabContent-journal" role="tabpanel">
 
-            <!-- ===== HOME TAB ===== -->
-            <div class="tab-content active" id="tabContent-home" role="tabpanel">
-                <section class="hero">
-                    <!-- Hero Banner Image -->
-                    <div class="hero-banner">
-                        <img
-                        src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/1.%20Hero%20Banner%20(Home%20Screen).png"
-                        alt="Serene sunrise over open Bible"
-                        width="1200"
-                        height="400"
-                        loading="eager"
-                        />
-                    </div>
-                    <img
-                    src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/WhatsApp%20Image%202026-06-19%20at%2010.59.51.png"
-                    alt="Faith Journal Logo"
-                    class="hero-logo"
-                    width="90"
-                    height="90"
-                    />
-                    <h1>Faith Journal</h1>
-                    <p>Your companion for prayer, Bible study, reflection, and spiritual growth. Track your journey, build lasting habits, and grow closer to God each day.</p>
-                    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-                        <button class="btn btn-primary" onclick="showTab('journal')">Start Journaling</button>
-                        <button class="btn btn-gold" onclick="showTab('study')">Bible Study Tools</button>
-                    </div>
-                </section>
-
-                <!-- Daily Verse -->
-                <div class="card" id="dailyVerseCard">
-                    <h2>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
-                        Daily Bible Verse
-                    </h2>
-                    <blockquote id="dailyVerseText" style="font-family:var(--font-heading);font-size:clamp(1.05rem,2.2vw,1.2rem);font-style:italic;margin:12px 0;color:var(--primary);line-height:1.6;">Loading...</blockquote>
-                    <p id="dailyVerseRef" style="font-weight:700;color:var(--gold2);"></p>
-                    <div id="dailyVerseReflection" style="background:var(--accent-warm);padding:14px;border-radius:var(--radius2);margin:10px 0;font-size:clamp(0.85rem,1.2vw,0.9rem);color:var(--text2);"></div>
-                    <button class="btn btn-outline btn-sm" onclick="getNewDailyVerse()">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
-                        Show Another Verse
-                    </button>
-                </div>
-
-                <!-- Motivational Reminder -->
-                <div class="card" style="text-align:center;border-left:4px solid var(--gold2);">
-                    <p id="motivationalMsg" style="font-family:var(--font-heading);font-size:clamp(1rem,1.8vw,1.1rem);color:var(--primary);"></p>
-                </div>
+            <!-- Journal Header Illustration -->
+            <div class="card-header-img">
+                <img
+                src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/2.%20journal%20header%20image.png"
+                alt="Open journal with warm light"
+                width="1200"
+                height="400"
+                loading="lazy"
+                />
             </div>
 
-            <!-- ===== JOURNAL TAB ===== -->
-            <div class="tab-content" id="tabContent-journal" role="tabpanel">
+            <!-- Prayer Journal -->
+            <div class="card">
+                <h2>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                    Prayer Journal
+                </h2>
 
-                <!-- Journal Header Illustration -->
-                <div class="card-header-img">
+                <!-- Prayer Header Image -->
+                <div class="card-header-img" style="margin-bottom:12px;">
                     <img
-                    src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/2.%20journal%20header%20image.png"
-                    alt="Open journal with warm light"
+                    src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/3.%20prayer%20header.png"
+                    alt="Hands in prayer with soft light"
                     width="1200"
                     height="400"
                     loading="lazy"
                     />
                 </div>
 
-                <!-- Prayer Journal -->
-                <div class="card">
-                    <h2>
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-                        Prayer Journal
-                    </h2>
-
-                    <!-- Prayer Header Image -->
-                    <div class="card-header-img" style="margin-bottom:12px;">
-                        <img
-                        src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/3.%20prayer%20header.png"
-                        alt="Hands in prayer with soft light"
-                        width="1200"
-                        height="400"
-                        loading="lazy"
-                        />
-                    </div>
-
-                    <label for="prayerInput">Write your prayer:</label>
-                    <textarea id="prayerInput" placeholder="Dear Lord..." aria-label="Write your prayer"></textarea>
-                    <label for="prayerCategory" style="margin-top:8px;">Category:</label>
-                    <select id="prayerCategory" aria-label="Prayer category">
-                        <option value="General">General</option><option value="Family">Family</option><option value="Health">Health</option><option value="School">School</option><option value="Work">Work</option><option value="Relationships">Relationships</option><option value="Finances">Finances</option><option value="Gratitude">Gratitude</option><option value="Other">Other</option>
-                    </select>
-                    <button class="btn btn-primary btn-sm" style="margin-top:10px;" onclick="savePrayer()">Save Prayer</button>
-                    <div style="margin-top:10px;">
-                        <input type="search" id="prayerSearch" placeholder="Search prayers..." aria-label="Search prayers" oninput="renderPrayers()" />
-                    </div>
-                </div>
-
-                <div id="savedPrayersList"></div>
-
-                <!-- Answered Prayers -->
-                <div class="card" id="answeredSection">
-                    <h2>
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                        Answered Prayers
-                    </h2>
-                    <div id="answeredPrayersList"><p style="color:var(--text2);">No answered prayers yet. Mark prayers as answered from your journal.</p></div>
-                </div>
-
-                <!-- Reflection Journal -->
-                <div class="card">
-                    <h2>
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                        Reflection Journal
-                    </h2>
-
-                    <!-- Reflection Header Image -->
-                    <div class="card-header-img" style="margin-bottom:12px;">
-                        <img
-                        src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/4.%20reflection%20header.png"
-                        alt="Peaceful sunset reflection"
-                        width="1200"
-                        height="400"
-                        loading="lazy"
-                        />
-                    </div>
-
-                    <label for="reflectionInput">Daily Reflection:</label>
-                    <textarea id="reflectionInput" placeholder="What is on your heart today?" aria-label="Daily reflection"></textarea>
-                    <button class="btn btn-primary btn-sm" style="margin-top:8px;" onclick="saveReflection()">Save Reflection</button>
-                    <div id="reflectionsList" style="margin-top:12px;"></div>
+                <label for="prayerInput">Write your prayer:</label>
+                <textarea id="prayerInput" placeholder="Dear Lord..." aria-label="Write your prayer"></textarea>
+                <label for="prayerCategory" style="margin-top:8px;">Category:</label>
+                <select id="prayerCategory" aria-label="Prayer category">
+                    <option value="General">General</option><option value="Family">Family</option><option value="Health">Health</option><option value="School">School</option><option value="Work">Work</option><option value="Relationships">Relationships</option><option value="Finances">Finances</option><option value="Gratitude">Gratitude</option><option value="Other">Other</option>
+                </select>
+                <button class="btn btn-primary btn-sm" style="margin-top:10px;" onclick="savePrayer()">Save Prayer</button>
+                <div style="margin-top:10px;">
+                    <input type="search" id="prayerSearch" placeholder="Search prayers..." aria-label="Search prayers" oninput="renderPrayers()" />
                 </div>
             </div>
 
-            <!-- ===== STUDY TAB ===== -->
-            <div class="tab-content" id="tabContent-study" role="tabpanel">
-                <div class="card">
-                    <h2>
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                        Bible Reading Tracker
-                    </h2>
-                    <p>Track books and chapters completed:</p>
-                    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
-                        <input type="text" id="bookInput" placeholder="Book name (e.g., Genesis)" aria-label="Book name" style="flex:1;min-width:140px;" />
-                        <input type="number" id="chapterInput" placeholder="Chapter" aria-label="Chapter number" min="1" style="width:90px;" />
-                        <button class="btn btn-primary btn-sm" onclick="addReadingProgress()">Add</button>
-                    </div>
-                    <div style="margin-top:10px;">
-                        <span id="readingProgressText">Progress: 0%</span>
-                        <div class="progress-bar"><div class="progress-fill" id="readingProgressBar" style="width:0%;"></div></div>
-                    </div>
-                    <div id="readingLog" style="margin-top:8px;font-size:0.85rem;color:var(--text2);"></div>
-                </div>
+            <div id="savedPrayersList"></div>
 
-                <div class="card">
-                    <h2>
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                        Bible Reading Plans
-                    </h2>
-                    <select id="readingPlanSelect" aria-label="Select reading plan" onchange="selectReadingPlan()">
-                        <option value="">-- Choose a plan --</option>
-                        <option value="7">7-Day Beginner Plan</option>
-                        <option value="30">30-Day Plan</option>
-                        <option value="90">90-Day Plan</option>
-                    </select>
-                    <div id="readingPlanDetails" style="margin-top:10px;font-size:0.9rem;color:var(--text2);"></div>
-                    <div id="readingPlanProgress" style="margin-top:8px;"></div>
-                </div>
-
-                <div class="card">
-                    <h2>
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        Favorite Bible Verses
-                    </h2>
-                    <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                        <input type="text" id="favVerseText" placeholder="Verse text" aria-label="Favorite verse text" style="flex:1;min-width:150px;" />
-                        <input type="text" id="favVerseRef" placeholder="Reference (e.g., John 3:16)" aria-label="Verse reference" style="width:160px;" />
-                        <button class="btn btn-primary btn-sm" onclick="saveFavoriteVerse()">Save</button>
-                    </div>
-                    <div id="favoriteVersesList" style="margin-top:10px;"></div>
-                </div>
-
-                <div class="card" id="quizSection">
-                    <h2>
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                        Bible Quiz
-                    </h2>
-                    <p id="quizQuestion" style="font-weight:600;"></p>
-                    <div id="quizOptions"></div>
-                    <p id="quizFeedback" style="margin-top:8px;font-weight:600;"></p>
-                    <p>Score: <span id="quizScore">0</span></p>
-                    <button class="btn btn-gold btn-sm" onclick="startQuiz()">New Question</button>
-                </div>
+            <!-- Answered Prayers -->
+            <div class="card" id="answeredSection">
+                <h2>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                    Answered Prayers
+                </h2>
+                <div id="answeredPrayersList"><p style="color:var(--text2);">No answered prayers yet. Mark prayers as answered from your journal.</p></div>
             </div>
 
-            <!-- ===== HABITS TAB ===== -->
-            <div class="tab-content" id="tabContent-habits" role="tabpanel">
-                <div class="card">
-                    <h2>
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                        Faith Habit Tracker
-                    </h2>
-                    <p style="color:var(--text2);">Track your daily spiritual habits:</p>
-                    <div id="habitList"></div>
+            <!-- Reflection Journal -->
+            <div class="card">
+                <h2>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    Reflection Journal
+                </h2>
+
+                <!-- Reflection Header Image -->
+                <div class="card-header-img" style="margin-bottom:12px;">
+                    <img
+                    src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/4.%20reflection%20header.png"
+                    alt="Peaceful sunset reflection"
+                    width="1200"
+                    height="400"
+                    loading="lazy"
+                    />
                 </div>
 
-                <div class="card">
-                    <h2>
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                        Daily Spiritual Check-In
-                    </h2>
-
-                    <!-- Daily Check-In Header Image -->
-                    <div class="card-header-img" style="margin-bottom:12px;">
-                        <img
-                        src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/5.%20Daily%20check%20in%20header.png"
-                        alt="Morning light with coffee and journal"
-                        width="1200"
-                        height="400"
-                        loading="lazy"
-                        />
-                    </div>
-
-                    <p id="checkinQuestion" style="font-weight:600;"></p>
-                    <div id="checkinOptions" style="display:flex;gap:10px;flex-wrap:wrap;margin:10px 0;"></div>
-                    <textarea id="checkinGratitude" placeholder="What are you grateful for today?" aria-label="Gratitude entry" style="margin-top:8px;"></textarea>
-                    <button class="btn btn-primary btn-sm" style="margin-top:8px;" onclick="submitCheckin()">Submit Check-In</button>
-                    <div id="checkinHistory" style="margin-top:10px;font-size:0.85rem;color:var(--text2);"></div>
-                </div>
-            </div>
-
-            <!-- ===== MORE TAB ===== -->
-            <div class="tab-content" id="tabContent-more" role="tabpanel">
-                <div class="card">
-                    <h2>
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-                        Statistics Dashboard
-                    </h2>
-                    <div class="stats-grid" id="statsGrid">
-                        <div class="stat-card"><div class="stat-number" id="statTotalPrayers">0</div><div class="stat-label">Total Prayers</div></div>
-                        <div class="stat-card"><div class="stat-number" id="statAnswered">0</div><div class="stat-label">Answered</div></div>
-                        <div class="stat-card"><div class="stat-number" id="statReadingProgress">0%</div><div class="stat-label">Reading Progress</div></div>
-                        <div class="stat-card"><div class="stat-number" id="statStreak">0</div><div class="stat-label">Day Streak</div></div>
-                        <div class="stat-card"><div class="stat-number" id="statDaysActive">0</div><div class="stat-label">Days Active</div></div>
-                        <div class="stat-card"><div class="stat-number" id="statReflections">0</div><div class="stat-label">Reflections</div></div>
-                    </div>
-                </div>
-
-                <div class="card" id="settingsSection">
-                    <h2>
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-                        Settings &amp; Data
-                    </h2>
-                    <button class="btn btn-outline btn-sm" onclick="exportData()">Export Data (JSON)</button>
-                    <button class="btn btn-outline btn-sm" style="margin-left:6px;" onclick="document.getElementById('importFileInput').click()">Import Data</button>
-                    <input type="file" id="importFileInput" accept=".json" style="display:none;" onchange="importData(event)" />
-                    <button class="btn btn-danger btn-sm" style="margin-left:6px;" onclick="if(confirm('Delete ALL local data? This cannot be undone.')){clearAllData();}">Clear All Data</button>
-                    <p style="margin-top:8px;font-size:0.8rem;color:var(--text2);">Backup your data regularly to prevent loss.</p>
-                    <div id="installHelpText" style="margin-top:12px;padding:12px;background:var(--accent-warm);border-radius:var(--radius2);font-size:0.85rem;color:var(--text2);display:none;"></div>
-                </div>
-
-                <div class="card">
-                    <h2>
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-                        Encouragement Library
-                    </h2>
-                    <p id="encouragementMsg" style="font-family:var(--font-heading);font-size:clamp(1rem,1.8vw,1.05rem);color:var(--primary);"></p>
-                    <button class="btn btn-outline btn-sm" onclick="showRandomEncouragement()">Show Another</button>
-                </div>
-
-                <div class="card" id="aboutSection">
-                    <h2>About Faith Journal</h2>
-                    <p style="color:var(--text2);">Faith Journal is designed to help you build consistent spiritual habits through prayer journaling, Bible study tracking, daily reflection, and habit formation. Our mission is to provide a peaceful, private space for your faith journey.</p>
-                    <p style="color:var(--text2);margin-top:8px;">Version 1.0.1</p>
-                </div>
-
-                <div class="card" id="privacySection">
-                    <h2>Privacy &amp; Disclaimer</h2>
-                    <p style="color:var(--text2);font-size:0.9rem;">This application is designed to support personal prayer, reflection, Bible study, and spiritual growth. We do not promise, predict, or guarantee that any prayer, request, or journal entry will be answered. Faith is a personal journey between you and God. This platform serves only as a tool to help organize and strengthen your spiritual habits.</p>
-                    <p style="color:var(--text2);font-size:0.9rem;margin-top:8px;">We respect your privacy. This website does not request or collect sensitive personal information such as ID numbers, passport numbers, banking details, credit card information, or government-issued identification. Journal entries and saved data are stored locally on your device and are not transmitted to external servers.</p>
-                    <p style="color:var(--text2);font-size:0.9rem;margin-top:8px;">This application is intended to be a companion tool for your spiritual journey. While it can help you organize prayers, reflections, and Bible study habits, it should not replace personal prayer, reading Scripture, church fellowship, pastoral guidance, or your direct relationship with God.</p>
-                </div>
-
-                <div class="card" id="contactSection">
-                    <h2>Contact</h2>
-                    <p style="color:var(--text2);">For inquiries, visit our website:</p>
-                    <a href="https://websolutionsza.github.io/websolutionsSA/" target="_blank" rel="noopener" class="btn btn-gold btn-sm" style="margin-top:6px;">Visit WebsolutionsSA</a>
-                </div>
-
-                <!-- Sign Out button in More tab -->
-                <div class="card" style="text-align:center;">
-                    <button class="btn btn-danger" onclick="handleSignOut()" style="width:100%;">Sign Out</button>
-                </div>
+                <label for="reflectionInput">Daily Reflection:</label>
+                <textarea id="reflectionInput" placeholder="What is on your heart today?" aria-label="Daily reflection"></textarea>
+                <button class="btn btn-primary btn-sm" style="margin-top:8px;" onclick="saveReflection()">Save Reflection</button>
+                <div id="reflectionsList" style="margin-top:12px;"></div>
             </div>
         </div>
-        <!-- end appContent -->
+
+        <!-- ===== STUDY TAB ===== -->
+        <div class="tab-content" id="tabContent-study" role="tabpanel">
+            <div class="card">
+                <h2>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    Bible Reading Tracker
+                </h2>
+                <p>Track books and chapters completed:</p>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+                    <input type="text" id="bookInput" placeholder="Book name (e.g., Genesis)" aria-label="Book name" style="flex:1;min-width:140px;" />
+                    <input type="number" id="chapterInput" placeholder="Chapter" aria-label="Chapter number" min="1" style="width:90px;" />
+                    <button class="btn btn-primary btn-sm" onclick="addReadingProgress()">Add</button>
+                </div>
+                <div style="margin-top:10px;">
+                    <span id="readingProgressText">Progress: 0%</span>
+                    <div class="progress-bar"><div class="progress-fill" id="readingProgressBar" style="width:0%;"></div></div>
+                </div>
+                <div id="readingLog" style="margin-top:8px;font-size:0.85rem;color:var(--text2);"></div>
+            </div>
+
+            <div class="card">
+                <h2>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    Bible Reading Plans
+                </h2>
+                <select id="readingPlanSelect" aria-label="Select reading plan" onchange="selectReadingPlan()">
+                    <option value="">-- Choose a plan --</option>
+                    <option value="7">7-Day Beginner Plan</option>
+                    <option value="30">30-Day Plan</option>
+                    <option value="90">90-Day Plan</option>
+                </select>
+                <div id="readingPlanDetails" style="margin-top:10px;font-size:0.9rem;color:var(--text2);"></div>
+                <div id="readingPlanProgress" style="margin-top:8px;"></div>
+            </div>
+
+            <div class="card">
+                <h2>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    Favorite Bible Verses
+                </h2>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                    <input type="text" id="favVerseText" placeholder="Verse text" aria-label="Favorite verse text" style="flex:1;min-width:150px;" />
+                    <input type="text" id="favVerseRef" placeholder="Reference (e.g., John 3:16)" aria-label="Verse reference" style="width:160px;" />
+                    <button class="btn btn-primary btn-sm" onclick="saveFavoriteVerse()">Save</button>
+                </div>
+                <div id="favoriteVersesList" style="margin-top:10px;"></div>
+            </div>
+
+            <div class="card" id="quizSection">
+                <h2>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    Bible Quiz
+                </h2>
+                <p id="quizQuestion" style="font-weight:600;"></p>
+                <div id="quizOptions"></div>
+                <p id="quizFeedback" style="margin-top:8px;font-weight:600;"></p>
+                <p>Score: <span id="quizScore">0</span></p>
+                <button class="btn btn-gold btn-sm" onclick="startQuiz()">New Question</button>
+            </div>
+        </div>
+
+        <!-- ===== HABITS TAB ===== -->
+        <div class="tab-content" id="tabContent-habits" role="tabpanel">
+            <div class="card">
+                <h2>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                    Faith Habit Tracker
+                </h2>
+                <p style="color:var(--text2);">Track your daily spiritual habits:</p>
+                <div id="habitList"></div>
+            </div>
+
+            <div class="card">
+                <h2>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    Daily Spiritual Check-In
+                </h2>
+
+                <!-- Daily Check-In Header Image -->
+                <div class="card-header-img" style="margin-bottom:12px;">
+                    <img
+                    src="https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/5.%20Daily%20check%20in%20header.png"
+                    alt="Morning light with coffee and journal"
+                    width="1200"
+                    height="400"
+                    loading="lazy"
+                    />
+                </div>
+
+                <p id="checkinQuestion" style="font-weight:600;"></p>
+                <div id="checkinOptions" style="display:flex;gap:10px;flex-wrap:wrap;margin:10px 0;"></div>
+                <textarea id="checkinGratitude" placeholder="What are you grateful for today?" aria-label="Gratitude entry" style="margin-top:8px;"></textarea>
+                <button class="btn btn-primary btn-sm" style="margin-top:8px;" onclick="submitCheckin()">Submit Check-In</button>
+                <div id="checkinHistory" style="margin-top:10px;font-size:0.85rem;color:var(--text2);"></div>
+            </div>
+        </div>
+
+        <!-- ===== MORE TAB ===== -->
+        <div class="tab-content" id="tabContent-more" role="tabpanel">
+            <div class="card">
+                <h2>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                    Statistics Dashboard
+                </h2>
+                <div class="stats-grid" id="statsGrid">
+                    <div class="stat-card"><div class="stat-number" id="statTotalPrayers">0</div><div class="stat-label">Total Prayers</div></div>
+                    <div class="stat-card"><div class="stat-number" id="statAnswered">0</div><div class="stat-label">Answered</div></div>
+                    <div class="stat-card"><div class="stat-number" id="statReadingProgress">0%</div><div class="stat-label">Reading Progress</div></div>
+                    <div class="stat-card"><div class="stat-number" id="statStreak">0</div><div class="stat-label">Day Streak</div></div>
+                    <div class="stat-card"><div class="stat-number" id="statDaysActive">0</div><div class="stat-label">Days Active</div></div>
+                    <div class="stat-card"><div class="stat-number" id="statReflections">0</div><div class="stat-label">Reflections</div></div>
+                </div>
+            </div>
+
+            <div class="card" id="settingsSection">
+                <h2>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                    Settings &amp; Data
+                </h2>
+                <button class="btn btn-outline btn-sm" onclick="exportData()">Export Data (JSON)</button>
+                <button class="btn btn-outline btn-sm" style="margin-left:6px;" onclick="document.getElementById('importFileInput').click()">Import Data</button>
+                <input type="file" id="importFileInput" accept=".json" style="display:none;" onchange="importData(event)" />
+                <button class="btn btn-danger btn-sm" style="margin-left:6px;" onclick="if(confirm('Delete ALL local data? This cannot be undone.')){clearAllData();}">Clear All Data</button>
+                <p style="margin-top:8px;font-size:0.8rem;color:var(--text2);">Backup your data regularly to prevent loss.</p>
+                <div id="installHelpText" style="margin-top:12px;padding:12px;background:var(--accent-warm);border-radius:var(--radius2);font-size:0.85rem;color:var(--text2);display:none;"></div>
+            </div>
+
+            <div class="card">
+                <h2>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                    Encouragement Library
+                </h2>
+                <p id="encouragementMsg" style="font-family:var(--font-heading);font-size:clamp(1rem,1.8vw,1.05rem);color:var(--primary);"></p>
+                <button class="btn btn-outline btn-sm" onclick="showRandomEncouragement()">Show Another</button>
+            </div>
+
+            <div class="card" id="aboutSection">
+                <h2>About Faith Journal</h2>
+                <p style="color:var(--text2);">Faith Journal is designed to help you build consistent spiritual habits through prayer journaling, Bible study tracking, daily reflection, and habit formation. Our mission is to provide a peaceful, private space for your faith journey.</p>
+                <p style="color:var(--text2);margin-top:8px;">Version 1.0.1</p>
+            </div>
+
+            <div class="card" id="privacySection">
+                <h2>Privacy &amp; Disclaimer</h2>
+                <p style="color:var(--text2);font-size:0.9rem;">This application is designed to support personal prayer, reflection, Bible study, and spiritual growth. We do not promise, predict, or guarantee that any prayer, request, or journal entry will be answered. Faith is a personal journey between you and God. This platform serves only as a tool to help organize and strengthen your spiritual habits.</p>
+                <p style="color:var(--text2);font-size:0.9rem;margin-top:8px;">We respect your privacy. This website does not request or collect sensitive personal information such as ID numbers, passport numbers, banking details, credit card information, or government-issued identification. Journal entries and saved data are stored locally on your device and are not transmitted to external servers.</p>
+                <p style="color:var(--text2);font-size:0.9rem;margin-top:8px;">This application is intended to be a companion tool for your spiritual journey. While it can help you organize prayers, reflections, and Bible study habits, it should not replace personal prayer, reading Scripture, church fellowship, pastoral guidance, or your direct relationship with God.</p>
+            </div>
+
+            <div class="card" id="contactSection">
+                <h2>Contact</h2>
+                <p style="color:var(--text2);">For inquiries, visit our website:</p>
+                <a href="https://websolutionsza.github.io/websolutionsSA/" target="_blank" rel="noopener" class="btn btn-gold btn-sm" style="margin-top:6px;">Visit WebsolutionsSA</a>
+            </div>
+        </div>
     </main>
 
     <!-- ===== FOOTER ===== -->
-    <footer class="site-footer" id="mainFooter">
+    <footer class="site-footer">
         <div class="footer-links">
             <button onclick="showTab('more');document.getElementById('privacySection')?.scrollIntoView({behavior:'smooth'});">Privacy Notice</button>
             <button onclick="showTab('more');document.getElementById('privacySection')?.scrollIntoView({behavior:'smooth'});">Disclaimer</button>
@@ -1861,28 +1583,6 @@
     <script>
         (function() {
             'use strict';
-
-            // ============ SUPABASE CONFIGURATION ============
-            // IMPORTANT: Replace these with your own Supabase project credentials.
-            // Get them from your Supabase dashboard: Settings > API
-            const SUPABASE_URL = 'SUPABASE_URL';
-            const SUPABASE_ANON_KEY = 'SUPABASE_ANON_KEY';
-
-            // ============ SUPABASE CLIENT ============
-            let supabaseClient = null;
-            let currentUser = null;
-
-            // Safely initialize the Supabase client
-            try {
-                if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
-                    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-                    console.log('Supabase client initialized successfully.');
-                } else {
-                    console.warn('Supabase SDK not loaded. Auth features will not work.');
-                }
-            } catch (err) {
-                console.warn('Failed to initialize Supabase client:', err);
-            }
 
             // ============ APP STATE ============
             const LOGO_URL =
@@ -2109,250 +1809,6 @@
             });
             if (!welcomeDone) {
                 document.getElementById('welcomeModal').style.display = 'flex';
-            }
-
-            // ============ AUTH UI HELPERS ============
-            function switchAuthTab(tab) {
-                document.querySelectorAll('#auth-container .auth-tabs button').forEach(function(btn) {
-                    btn.classList.remove('active-tab');
-                    btn.setAttribute('aria-selected', 'false');
-                });
-                document.querySelectorAll('#auth-container .auth-form').forEach(function(form) {
-                    form.classList.remove('active-form');
-                });
-                const tabBtn = document.querySelector('#auth-container .auth-tabs button[data-auth-tab="' + tab +
-                    '"]');
-                if (tabBtn) {
-                    tabBtn.classList.add('active-tab');
-                    tabBtn.setAttribute('aria-selected', 'true');
-                }
-                const formId = tab === 'signin' ? 'authFormSignIn' : 'authFormSignUp';
-                const formEl = document.getElementById(formId);
-                if (formEl) formEl.classList.add('active-form');
-                // Clear errors
-                document.getElementById('signinError').textContent = '';
-                document.getElementById('signupError').textContent = '';
-                document.getElementById('signupSuccess').textContent = '';
-            }
-
-            // ============ AUTH STATE MANAGEMENT ============
-            function setAuthUI(authenticated, user) {
-                const authContainer = document.getElementById('auth-container');
-                const appContent = document.getElementById('appContent');
-                const mainNav = document.getElementById('mainNav');
-                const mainFooter = document.getElementById('mainFooter');
-                const navBadge = document.getElementById('navAccountBadge');
-                const navUserEmail = document.getElementById('navUserEmail');
-
-                if (authenticated && user) {
-                    // Show app, hide auth
-                    authContainer.classList.add('hidden');
-                    appContent.classList.remove('hidden');
-                    mainNav.classList.remove('hidden');
-                    mainFooter.classList.remove('hidden');
-                    currentUser = user;
-
-                    // Update nav badge
-                    navBadge.classList.remove('hidden');
-                    const email = user.email || 'user';
-                    navUserEmail.textContent = email.length > 20 ? email.substring(0, 18) + '…' : email;
-
-                    // Re-render app content
-                    renderAll();
-                } else {
-                    // Show auth, hide app
-                    authContainer.classList.remove('hidden');
-                    appContent.classList.add('hidden');
-                    mainNav.classList.add('hidden');
-                    mainFooter.classList.add('hidden');
-                    currentUser = null;
-                    navBadge.classList.add('hidden');
-
-                    // Reset auth forms
-                    document.getElementById('signinEmail').value = '';
-                    document.getElementById('signinPassword').value = '';
-                    document.getElementById('signupEmail').value = '';
-                    document.getElementById('signupPassword').value = '';
-                    document.getElementById('signupConfirm').value = '';
-                    document.getElementById('signinError').textContent = '';
-                    document.getElementById('signupError').textContent = '';
-                    document.getElementById('signupSuccess').textContent = '';
-                    switchAuthTab('signin');
-                }
-            }
-
-            // ============ AUTH FUNCTIONS ============
-            async function handleSignIn(event) {
-                event.preventDefault();
-                const email = document.getElementById('signinEmail').value.trim();
-                const password = document.getElementById('signinPassword').value;
-                const errorEl = document.getElementById('signinError');
-
-                errorEl.textContent = '';
-
-                if (!email || !password) {
-                    errorEl.textContent = 'Please enter both email and password.';
-                    return false;
-                }
-
-                if (!supabaseClient) {
-                    errorEl.textContent = 'Supabase client not initialized. Please check your configuration.';
-                    return false;
-                }
-
-                try {
-                    const { data, error } = await supabaseClient.auth.signInWithPassword({
-                        email: email,
-                        password: password,
-                    });
-
-                    if (error) {
-                        errorEl.textContent = error.message || 'Sign in failed. Please check your credentials.';
-                        return false;
-                    }
-
-                    if (data && data.user) {
-                        showToast('Welcome back, ' + (data.user.email || '') + '!');
-                        setAuthUI(true, data.user);
-                        return false;
-                    } else {
-                        errorEl.textContent = 'Sign in failed. Please try again.';
-                        return false;
-                    }
-                } catch (err) {
-                    errorEl.textContent = 'An error occurred during sign in. Please try again.';
-                    console.error('Sign in error:', err);
-                    return false;
-                }
-            }
-
-            async function handleSignUp(event) {
-                event.preventDefault();
-                const email = document.getElementById('signupEmail').value.trim();
-                const password = document.getElementById('signupPassword').value;
-                const confirm = document.getElementById('signupConfirm').value;
-                const errorEl = document.getElementById('signupError');
-                const successEl = document.getElementById('signupSuccess');
-
-                errorEl.textContent = '';
-                successEl.textContent = '';
-
-                if (!email || !password || !confirm) {
-                    errorEl.textContent = 'Please fill in all fields.';
-                    return false;
-                }
-
-                if (password.length < 6) {
-                    errorEl.textContent = 'Password must be at least 6 characters.';
-                    return false;
-                }
-
-                if (password !== confirm) {
-                    errorEl.textContent = 'Passwords do not match.';
-                    return false;
-                }
-
-                if (!supabaseClient) {
-                    errorEl.textContent = 'Supabase client not initialized. Please check your configuration.';
-                    return false;
-                }
-
-                try {
-                    const { data, error } = await supabaseClient.auth.signUp({
-                        email: email,
-                        password: password,
-                    });
-
-                    if (error) {
-                        errorEl.textContent = error.message || 'Sign up failed. Please try again.';
-                        return false;
-                    }
-
-                    if (data && data.user) {
-                        successEl.textContent = 'Account created successfully! You can now sign in.';
-                        // Clear the form
-                        document.getElementById('signupEmail').value = '';
-                        document.getElementById('signupPassword').value = '';
-                        document.getElementById('signupConfirm').value = '';
-                        // Switch to sign in tab after a short delay
-                        setTimeout(function() {
-                            switchAuthTab('signin');
-                            document.getElementById('signinEmail').value = email;
-                            showToast('Account created. Please sign in.');
-                        }, 1500);
-                        return false;
-                    } else {
-                        errorEl.textContent = 'Sign up failed. Please try again.';
-                        return false;
-                    }
-                } catch (err) {
-                    errorEl.textContent = 'An error occurred during sign up. Please try again.';
-                    console.error('Sign up error:', err);
-                    return false;
-                }
-            }
-
-            async function handleSignOut() {
-                if (!supabaseClient) {
-                    showToast('Supabase client not available.');
-                    return;
-                }
-                try {
-                    const { error } = await supabaseClient.auth.signOut();
-                    if (error) {
-                        showToast('Error signing out: ' + error.message);
-                        return;
-                    }
-                    showToast('Signed out successfully.');
-                    setAuthUI(false, null);
-                    // Reset to home tab
-                    showTab('home');
-                } catch (err) {
-                    showToast('Error signing out.');
-                    console.error('Sign out error:', err);
-                }
-            }
-
-            async function checkAuthSession() {
-                if (!supabaseClient) {
-                    console.warn('Supabase client not available. Showing auth screen.');
-                    setAuthUI(false, null);
-                    return;
-                }
-
-                try {
-                    const { data, error } = await supabaseClient.auth.getSession();
-                    if (error) {
-                        console.warn('Session error:', error.message);
-                        setAuthUI(false, null);
-                        return;
-                    }
-
-                    if (data && data.session && data.session.user) {
-                        setAuthUI(true, data.session.user);
-                    } else {
-                        setAuthUI(false, null);
-                    }
-                } catch (err) {
-                    console.warn('Session check error:', err);
-                    setAuthUI(false, null);
-                }
-
-                // Listen for auth changes
-                supabaseClient.auth.onAuthStateChange(function(event, session) {
-                    if (event === 'SIGNED_IN' && session && session.user) {
-                        setAuthUI(true, session.user);
-                        renderAll();
-                    } else if (event === 'SIGNED_OUT') {
-                        setAuthUI(false, null);
-                        showTab('home');
-                    } else if (event === 'TOKEN_REFRESHED' && session && session.user) {
-                        // Session refreshed, keep UI as is
-                        if (!currentUser) {
-                            setAuthUI(true, session.user);
-                        }
-                    }
-                });
             }
 
             // ============ TAB NAVIGATION ============
@@ -3005,18 +2461,10 @@
             // ============ INITIALIZATION ============
             function init() {
                 document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-                // Check auth session first
-                checkAuthSession().then(function() {
-                    // If user is already logged in, render everything
-                    if (currentUser) {
-                        renderAll();
-                    }
-                });
-
-                // Pre-render data for when auth is restored
+                displayDailyVerse();
+                showMotivational();
+                showRandomEncouragement();
                 renderAll();
-
                 updateStats();
                 setupPWA();
                 if (document.getElementById('quizQuestion') && !document.getElementById('quizQuestion').textContent) {
@@ -3071,20 +2519,9 @@
             window.triggerInstall = triggerInstall;
             window.renderPrayers = renderPrayers;
 
-            // Auth globals
-            window.switchAuthTab = switchAuthTab;
-            window.handleSignIn = handleSignIn;
-            window.handleSignUp = handleSignUp;
-            window.handleSignOut = handleSignOut;
-
             // Init
             init();
             console.log('Faith Journal v' + APP_VERSION + ' initialized successfully.');
-            if (supabaseClient) {
-                console.log('Supabase client connected.');
-            } else {
-                console.warn('Supabase client not available. Please set SUPABASE_URL and SUPABASE_ANON_KEY.');
-            }
         })();
     </script>
 
