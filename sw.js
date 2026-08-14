@@ -1,5 +1,5 @@
 /* Faith Journal service worker — cache-first assets with offline navigation fallback. */
-const VERSION = 'faith-journal-v2';
+const VERSION = 'faith-journal-v3';
 const STATIC_CACHE = `${VERSION}-static`;
 const RUNTIME_CACHE = `${VERSION}-runtime`;
 
