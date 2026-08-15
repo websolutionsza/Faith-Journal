@@ -32,11 +32,15 @@
   --ease: 220ms cubic-bezier(.2,.7,.2,1); --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --heading: Georgia, "Times New Roman", serif; --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px); --safe-left: env(safe-area-inset-left, 0px); --safe-right: env(safe-area-inset-right, 0px);
+  /* Aliases: several sections of the markup reference these names directly. */
+  --gold2: var(--gold); --text2: var(--muted); --font-heading: var(--heading);
+  --accent-warm: color-mix(in srgb, var(--gold-light) 22%, var(--bg-strong)); --radius2: var(--radius-sm);
 }
 .dark { --bg:#161b24; --bg-strong:#202633; --surface:rgba(32,38,49,.82); --surface-solid:#202631; --text:#f1eadc; --muted:#b9b5ab; --primary:#b6d6ee; --primary-2:#d2e7f6; --gold:#d4b16d; --gold-light:#e7ce98; --border:rgba(255,255,255,.11); --shadow:0 18px 44px rgba(0,0,0,.28); --shadow-soft:0 8px 26px rgba(0,0,0,.2); }
 * { box-sizing:border-box; margin:0; padding:0; }
 html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; background:var(--bg); }
-body { min-height:100vh; min-height:100dvh; padding:var(--safe-top) var(--safe-right) calc(76px + var(--safe-bottom)) var(--safe-left); background:radial-gradient(circle at 10% 0%, rgba(216,188,131,.12), transparent 30rem), var(--bg); color:var(--text); font:400 1rem/1.65 var(--font); -webkit-font-smoothing:antialiased; }
+html { scrollbar-gutter:stable; }
+body { min-height:100vh; min-height:100dvh; padding:0 var(--safe-right) calc(76px + var(--safe-bottom)) var(--safe-left); background:radial-gradient(circle at 10% 0%, rgba(216,188,131,.12), transparent 30rem), var(--bg); color:var(--text); font:400 1rem/1.65 var(--font); -webkit-font-smoothing:antialiased; }
 body::before { content:""; position:fixed; inset:0; pointer-events:none; z-index:-1; background:linear-gradient(135deg, rgba(23,54,95,.035), transparent 45%, rgba(181,138,76,.045)); }
 button, input, textarea, select { font:inherit; }
 button, a, input, textarea, select { -webkit-tap-highlight-color:transparent; }
@@ -44,7 +48,7 @@ img { display:block; max-width:100%; height:auto; }
 ::selection { background:var(--gold-light); color:#182334; }
 :focus-visible { outline:3px solid var(--gold-light); outline-offset:3px; }
 .container { width:min(100% - 28px, 1040px); margin-inline:auto; }
-.nav { position:sticky; top:0; z-index:100; display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:center; gap:12px; min-height:72px; padding:8px clamp(12px,3vw,28px); background:color-mix(in srgb, var(--surface-solid) 78%, transparent); border-bottom:1px solid var(--border); box-shadow:var(--shadow-soft); backdrop-filter:blur(18px) saturate(135%); -webkit-backdrop-filter:blur(18px) saturate(135%); }
+.nav { position:sticky; top:0; z-index:100; display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:center; gap:12px; min-height:72px; padding:calc(8px + var(--safe-top)) clamp(12px,3vw,28px) 8px; background:color-mix(in srgb, var(--surface-solid) 78%, transparent); border-bottom:1px solid var(--border); box-shadow:var(--shadow-soft); backdrop-filter:blur(18px) saturate(135%); -webkit-backdrop-filter:blur(18px) saturate(135%); }
 .nav-logo { justify-self:start; display:inline-flex; align-items:center; gap:10px; color:var(--primary); font:700 clamp(1rem,2vw,1.2rem)/1 var(--heading); text-decoration:none; white-space:nowrap; }
 .nav-logo img { width:40px; height:40px; border:2px solid var(--gold-light); border-radius:50%; object-fit:cover; box-shadow:0 5px 16px rgba(181,138,76,.22); }
 .nav-links { justify-self:center; display:flex; align-items:center; justify-content:center; gap:4px; }
@@ -64,7 +68,7 @@ img { display:block; max-width:100%; height:auto; }
 .hero-banner::after, .card-header-img::after { content:""; position:absolute; inset:0; z-index:1; pointer-events:none; background:linear-gradient(115deg, rgba(10,25,45,.72), rgba(10,25,45,.10) 58%, rgba(181,138,76,.28)); mix-blend-mode:multiply; }
 .hero-banner img, .card-header-img img { width:100%; aspect-ratio:16/6; object-fit:cover; object-position:center; transition:transform 500ms ease; }
 .hero-banner:hover img, .card-header-img:hover img { transform:scale(1.035); }
-.hero-logo { position:relative; z-index:2; width:96px; height:96px; margin:-78px auto 18px; border:4px solid var(--surface-solid); border-radius:50%; object-fit:cover; box-shadow:0 12px 34px rgba(24,38,58,.24), 0 0 0 3px var(--gold-light); }
+.hero-logo { position:relative; z-index:2; width:96px; height:96px; margin:-42px auto 20px; border:5px solid var(--surface-solid); border-radius:50%; object-fit:cover; box-shadow:0 12px 34px rgba(24,38,58,.24), 0 0 0 3px var(--gold-light); }
 h1, h2, h3 { color:var(--primary); font-family:var(--heading); letter-spacing:.2px; }
 .hero h1 { font-size:clamp(1.85rem,5vw,3rem); margin-bottom:8px; }
 .hero p { max-width:680px; margin:0 auto 20px; color:var(--muted); font-size:clamp(.95rem,2vw,1.08rem); }
@@ -94,7 +98,7 @@ label { display:block; margin-bottom:6px; color:var(--text); font-weight:700; fo
 .check-circle.checked { background:var(--success); border-color:var(--success); color:#fff; }
 .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; }
 .stat-card { padding:17px; border:1px solid var(--border); border-radius:var(--radius-sm); background:var(--bg-strong); text-align:center; }
-.stat-number { color:var(--gold); font:700 clamp(1.6rem,3.5vw,2.1rem) var(--heading); }
+.stat-number { color:var(--gold); font:700 clamp(1.6rem,3.5vw,2.1rem) var(--heading); font-variant-numeric:tabular-nums; }
 .stat-label { color:var(--muted); font-size:.8rem; }
 .modal-overlay { position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center; padding:20px; background:rgba(10,18,28,.68); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
 .modal { width:min(100%,560px); max-height:min(88dvh,760px); overflow:auto; padding:clamp(22px,4vw,32px); border:1px solid var(--border); border-radius:var(--radius); background:var(--surface-solid); box-shadow:0 24px 80px rgba(0,0,0,.28); }
@@ -107,15 +111,28 @@ label { display:block; margin-bottom:6px; color:var(--text); font-weight:700; fo
 .footer-links { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:10px 0; }
 .footer-links button { min-height:44px; padding:6px 9px; border:0; background:none; color:var(--muted); cursor:pointer; text-decoration:underline; }
 .toast { position:fixed; right:18px; bottom:calc(18px + var(--safe-bottom)); z-index:400; max-width:min(90vw,420px); padding:12px 18px; border-radius:999px; background:var(--primary); color:#fff; box-shadow:var(--shadow); }
-#splashScreen { position:fixed; inset:0; z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px; background:var(--bg); text-align:center; transition:opacity 700ms ease,visibility 700ms ease; }
+#splashScreen { position:fixed; inset:0; z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:calc(24px + var(--safe-top)) calc(24px + var(--safe-right)) calc(24px + var(--safe-bottom)) calc(24px + var(--safe-left)); background:var(--bg); text-align:center; transition:opacity 700ms ease,visibility 700ms ease; }
 #splashScreen.hidden { opacity:0; visibility:hidden; pointer-events:none; }
 #splashScreen .splash-logo { width:104px; height:104px; margin-bottom:20px; border:3px solid var(--gold-light); border-radius:50%; object-fit:cover; box-shadow:var(--shadow); }
 #splashScreen h1 { font-size:clamp(1.9rem,5vw,2.8rem); }
 #splashScreen .splash-version, #splashScreen .splash-sub { color:var(--muted); }
+.quiz-progress { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:14px; color:var(--muted); font-size:.82rem; font-weight:700; }
+.quiz-question { min-height:2.6em; margin-bottom:14px; font-size:clamp(1.05rem,2.4vw,1.2rem); }
+#quizOptions { display:flex; flex-direction:column; gap:10px; }
+.quiz-option { -webkit-appearance:none; appearance:none; display:flex; align-items:center; gap:12px; width:100%; min-height:56px; padding:12px 16px; border:1.5px solid var(--border); border-radius:var(--radius-sm); background:var(--bg-strong); color:var(--text); text-align:left; font-weight:600; font-size:.96rem; cursor:pointer; transition:border-color var(--ease), background var(--ease), transform var(--ease), box-shadow var(--ease); }
+.quiz-option:hover:not(:disabled) { border-color:var(--gold); transform:translateY(-1px); box-shadow:var(--shadow-soft); }
+.quiz-option:disabled { cursor:default; }
+.quiz-option .tick { display:grid; place-items:center; flex:0 0 24px; width:24px; height:24px; border:2px solid var(--border); border-radius:7px; color:transparent; background:var(--surface-solid); transition:background var(--ease), border-color var(--ease), color var(--ease); }
+.quiz-option .opt-label { flex:1; }
+.quiz-option.correct { border-color:var(--success); background:color-mix(in srgb, var(--success) 14%, var(--bg-strong)); }
+.quiz-option.correct .tick { background:var(--success); border-color:var(--success); color:#fff; }
+.quiz-option.wrong { border-color:var(--danger); background:color-mix(in srgb, var(--danger) 12%, var(--bg-strong)); }
+.quiz-option.wrong .tick { background:var(--danger); border-color:var(--danger); color:#fff; }
+#quizFeedback { min-height:1.5em; }
 .tab-content { display:none; animation:fadeIn 300ms ease; }
 .tab-content.active { display:block; }
 @keyframes fadeIn { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:none; } }
-@media (max-width:760px) { .nav { grid-template-columns:1fr auto; min-height:64px; } .nav-logo { justify-self:center; grid-column:1 / -1; grid-row:1; } .nav-links { grid-column:1 / -1; grid-row:2; width:100%; overflow-x:auto; justify-content:flex-start; padding:2px 0 4px; scrollbar-width:none; } .nav-links::-webkit-scrollbar { display:none; } .nav-actions { position:absolute; right:12px; top:10px; } .nav-logo img { width:36px; height:36px; } .nav-logo { padding-inline:50px; } .install-btn { display:none; } .container { width:min(100% - 20px,1040px); } .hero { padding-top:22px; } .hero-banner img { aspect-ratio:16/8; } .card-header-img img { aspect-ratio:16/8; } .hero-logo { margin-top:-66px; width:84px; height:84px; } }
+@media (max-width:760px) { .nav { grid-template-columns:1fr auto; min-height:64px; } .nav-logo { justify-self:center; grid-column:1 / -1; grid-row:1; } .nav-links { grid-column:1 / -1; grid-row:2; width:100%; overflow-x:auto; justify-content:flex-start; padding:2px 0 4px; scrollbar-width:none; } .nav-links::-webkit-scrollbar { display:none; } .nav-actions { position:absolute; right:12px; top:10px; } .nav-logo img { width:36px; height:36px; } .nav-logo { padding-inline:50px; } .install-btn { display:none; } .container { width:min(100% - 20px,1040px); } .hero { padding-top:22px; } .hero-banner img { aspect-ratio:16/8; } .card-header-img img { aspect-ratio:16/8; } .hero-logo { margin-top:-36px; width:84px; height:84px; } }
 @media (max-width:420px) { .nav-actions { right:8px; gap:3px; } .icon-btn { width:40px; height:40px; min-width:40px; min-height:40px; } .nav-logo { font-size:.94rem; } .btn { width:100%; } .cookie-banner .btn { width:auto; flex:1; } }
 @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto !important; animation-duration:.01ms !important; transition-duration:.01ms !important; } }
 </style>
@@ -132,7 +149,7 @@ label { display:block; margin-bottom:6px; color:var(--text); font-weight:700; fo
         height="100"
         />
         <h1>Faith Journal</h1>
-        <p class="splash-version">Version 1.0.1</p>
+        <p class="splash-version">Version 1.1.0</p>
         <p class="splash-sub">Your companion for spiritual growth</p>
     </div>
 
@@ -185,7 +202,7 @@ label { display:block; margin-bottom:6px; color:var(--text); font-weight:700; fo
                 <svg id="darkIcon" viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
             </button>
             <button class="icon-btn" onclick="showTab('more');document.getElementById('settingsSection')?.scrollIntoView({behavior:'smooth'});" aria-label="Settings" title="Settings">
-                <svg viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
             </button>
         </div>
     </nav>
@@ -370,11 +387,14 @@ label { display:block; margin-bottom:6px; color:var(--text); font-weight:700; fo
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                     Bible Quiz
                 </h2>
-                <p id="quizQuestion" style="font-weight:600;"></p>
+                <div class="quiz-progress">
+                    <span id="quizProgress">Question 1</span>
+                    <span>Score: <span id="quizScore">0</span></span>
+                </div>
+                <p id="quizQuestion" class="quiz-question"></p>
                 <div id="quizOptions"></div>
-                <p id="quizFeedback" style="margin-top:8px;font-weight:600;"></p>
-                <p>Score: <span id="quizScore">0</span></p>
-                <button class="btn btn-gold btn-sm" onclick="startQuiz()">New Question</button>
+                <p id="quizFeedback" style="margin-top:12px;font-weight:600;"></p>
+                <button class="btn btn-gold btn-sm" style="margin-top:6px;" onclick="startQuiz()">New Question</button>
             </div>
         </div>
 
@@ -435,11 +455,13 @@ label { display:block; margin-bottom:6px; color:var(--text); font-weight:700; fo
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
                     Settings &amp; Data
                 </h2>
-                <button class="btn btn-outline btn-sm" onclick="exportData()">Export Data (JSON)</button>
-                <button class="btn btn-outline btn-sm" style="margin-left:6px;" onclick="document.getElementById('importFileInput').click()">Import Data</button>
-                <input type="file" id="importFileInput" accept=".json" style="display:none;" onchange="importData(event)" />
-                <button class="btn btn-danger btn-sm" style="margin-left:6px;" onclick="if(confirm('Delete ALL local data? This cannot be undone.')){clearAllData();}">Clear All Data</button>
-                <p style="margin-top:8px;font-size:0.8rem;color:var(--text2);">Backup your data regularly to prevent loss.</p>
+                <div style="display:flex;flex-wrap:wrap;gap:10px;">
+                    <button class="btn btn-outline btn-sm" onclick="exportData()">Export Data (JSON)</button>
+                    <button class="btn btn-outline btn-sm" onclick="document.getElementById('importFileInput').click()">Import Data</button>
+                    <input type="file" id="importFileInput" accept=".json" style="display:none;" onchange="importData(event)" />
+                    <button class="btn btn-danger btn-sm" onclick="if(confirm('Delete ALL local data? This cannot be undone.')){clearAllData();}">Clear All Data</button>
+                </div>
+                <p style="margin-top:10px;font-size:0.8rem;color:var(--muted);">Backup your data regularly to prevent loss.</p>
                 <div id="installHelpText" style="margin-top:12px;padding:12px;background:var(--accent-warm);border-radius:var(--radius2);font-size:0.85rem;color:var(--text2);display:none;"></div>
             </div>
 
@@ -455,7 +477,7 @@ label { display:block; margin-bottom:6px; color:var(--text); font-weight:700; fo
             <div class="card" id="aboutSection">
                 <h2>About Faith Journal</h2>
                 <p style="color:var(--text2);">Faith Journal is designed to help you build consistent spiritual habits through prayer journaling, Bible study tracking, daily reflection, and habit formation. Our mission is to provide a peaceful, private space for your faith journey.</p>
-                <p style="color:var(--text2);margin-top:8px;">Version 1.0.1</p>
+                <p style="color:var(--text2);margin-top:8px;">Version 1.1.0</p>
             </div>
 
             <div class="card" id="privacySection">
@@ -483,7 +505,7 @@ label { display:block; margin-bottom:6px; color:var(--text); font-weight:700; fo
         </div>
         <p>&copy; <span id="currentYear"></span> All rights reserved.</p>
         <p><a href="https://websolutionsza.github.io/websolutionsSA/" target="_blank" rel="noopener" title="Visit WebsolutionsSA">Website developed by WebsolutionsSA</a></p>
-        <p style="font-size:0.75rem;">Version 1.0.1</p>
+        <p style="font-size:0.75rem;">Version 1.1.0</p>
     </footer>
 
     <!-- ===== TOAST CONTAINER ===== -->
@@ -498,7 +520,7 @@ label { display:block; margin-bottom:6px; color:var(--text); font-weight:700; fo
             const LOGO_URL =
                 'https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/WhatsApp%20Image%202026-06-19%20at%2010.59.51.png';
             const APP_NAME = 'Faith Journal';
-            const APP_VERSION = '1.0.1';
+            const APP_VERSION = '1.1.0';
 
             // Bible verses database
             const bibleVerses = [
@@ -532,6 +554,56 @@ label { display:block; margin-bottom:6px; color:var(--text); font-weight:700; fo
                     reflection: 'You don\'t have to carry your worries alone. Give them to God who genuinely cares.' },
                 { text: 'Seek first the kingdom of God and his righteousness, and all these things will be added to you.',
                     ref: 'Matthew 6:33', reflection: 'Prioritize God\'s kingdom above all else, and trust Him to provide for your needs.' },
+                { text: 'For God gave us a spirit not of fear but of power and love and self-control.',
+                    ref: '2 Timothy 1:7', reflection: 'Fear is not from God. He equips you with power, love, and a sound mind.' },
+                { text: 'Rejoice always, pray without ceasing, give thanks in all circumstances.',
+                    ref: '1 Thessalonians 5:16-18', reflection: 'A joyful, prayerful, grateful heart is God\'s will for you, in every season.' },
+                { text: 'Do not be anxious about anything, but in everything by prayer and supplication with thanksgiving let your requests be made known to God.',
+                    ref: 'Philippians 4:6', reflection: 'Replace worry with prayer. Bring every concern to God with a thankful heart.' },
+                { text: 'And let us not grow weary of doing good, for in due season we will reap, if we do not give up.',
+                    ref: 'Galatians 6:9', reflection: 'Perseverance in faith and kindness will bear fruit. Do not lose heart.' },
+                { text: 'This is the day that the Lord has made; let us rejoice and be glad in it.',
+                    ref: 'Psalm 118:24', reflection: 'Every day is a gift from God, worthy of gratitude and joy.' },
+                { text: 'He heals the brokenhearted and binds up their wounds.', ref: 'Psalm 147:3',
+                    reflection: 'Whatever pain you carry, God sees it and is near to mend it.' },
+                { text: 'The Lord is near to the brokenhearted and saves the crushed in spirit.', ref: 'Psalm 34:18',
+                    reflection: 'You are never closer to God than in your lowest moments. He is near.' },
+                { text: 'For nothing will be impossible with God.', ref: 'Luke 1:37',
+                    reflection: 'No situation is beyond God\'s power. Hold on to hope in Him.' },
+                { text: 'Delight yourself in the Lord, and he will give you the desires of your heart.', ref: 'Psalm 37:4',
+                    reflection: 'As you draw close to God, He shapes your heart\'s desires to align with His good plan.' },
+                { text: 'Have I not commanded you? Be strong and courageous. Do not be frightened, and do not be dismayed, for the Lord your God is with you wherever you go.',
+                    ref: 'Joshua 1:9', reflection: 'God\'s presence is your steady courage, no matter where the road leads.' },
+                { text: 'Blessed are the pure in heart, for they shall see God.', ref: 'Matthew 5:8',
+                    reflection: 'A pure heart draws you nearer to God\'s presence and His perspective.' },
+                { text: 'Love is patient and kind; love does not envy or boast; it is not arrogant or rude.',
+                    ref: '1 Corinthians 13:4', reflection: 'True love reflects God\'s character. Let it shape how you treat others today.' },
+                { text: 'Be still, and know that I am God.', ref: 'Psalm 46:10',
+                    reflection: 'In the noise of life, stillness reminds you who is truly in control.' },
+                { text: 'The name of the Lord is a strong tower; the righteous man runs into it and is safe.',
+                    ref: 'Proverbs 18:10', reflection: 'God\'s name is a refuge. Run to Him when trouble comes.' },
+                { text: 'Give thanks to the Lord, for he is good; his steadfast love endures forever.',
+                    ref: 'Psalm 107:1', reflection: 'God\'s goodness and love are constant, no matter your circumstances.' },
+                { text: 'I have set the Lord always before me; because he is at my right hand, I shall not be shaken.',
+                    ref: 'Psalm 16:8', reflection: 'Keeping your focus on God steadies you when life feels unstable.' },
+                { text: 'Fear not, for I am with you; be not dismayed, for I am your God; I will strengthen you, I will help you.',
+                    ref: 'Isaiah 41:10', reflection: 'God\'s promise of presence and help stands firm over every fear.' },
+                { text: 'Create in me a clean heart, O God, and renew a right spirit within me.', ref: 'Psalm 51:10',
+                    reflection: 'Ask God to renew you from the inside out, today and every day.' },
+                { text: 'Whatever you do, work heartily, as for the Lord and not for men.', ref: 'Colossians 3:23',
+                    reflection: 'Let your daily work, however ordinary, become an offering of worship.' },
+                { text: 'A friend loves at all times, and a brother is born for adversity.', ref: 'Proverbs 17:17',
+                    reflection: 'True friendship reflects God\'s steadfast love, especially in hard seasons.' },
+                { text: 'For by grace you have been saved through faith. And this is not your own doing; it is the gift of God.',
+                    ref: 'Ephesians 2:8', reflection: 'Salvation is a gift, not something earned. Rest in God\'s grace.' },
+                { text: 'Above all else, guard your heart, for everything you do flows from it.', ref: 'Proverbs 4:23',
+                    reflection: 'Protect what you allow into your heart; it shapes everything you do.' },
+                { text: 'The Lord your God is in your midst, a mighty one who will save; he will rejoice over you with gladness.',
+                    ref: 'Zephaniah 3:17', reflection: 'God does not just tolerate you, He delights over you with joy.' },
+                { text: 'Commit your work to the Lord, and your plans will be established.', ref: 'Proverbs 16:3',
+                    reflection: 'Hand your plans over to God, and let Him guide them to their purpose.' },
+                { text: 'Let the peace of Christ rule in your hearts, to which indeed you were called in one body. And be thankful.',
+                    ref: 'Colossians 3:15', reflection: 'Let Christ\'s peace, not circumstance, be what governs your heart.' },
             ];
 
             const quizQuestions = [
@@ -551,6 +623,123 @@ label { display:block; margin-bottom:6px; color:var(--text); font-weight:700; fo
                 { q: 'How many disciples did Jesus have?', options: ['10', '7', '12', '14'], correct: 2 },
                 { q: 'What is the last book of the Bible?', options: ['Malachi', 'Revelation', 'Jude', 'Acts'],
                     correct: 1 },
+                { q: 'Who was swallowed by a great fish?', options: ['Jonah', 'Elijah', 'Jeremiah', 'Amos'],
+                    correct: 0 },
+                { q: 'How many days and nights did it rain during the flood?', options: ['7', '40', '100', '14'],
+                    correct: 1 },
+                { q: 'Who was the first man created by God?', options: ['Cain', 'Abel', 'Adam', 'Seth'],
+                    correct: 2 },
+                { q: 'Who was the first woman created by God?', options: ['Eve', 'Sarah', 'Rachel', 'Rebekah'],
+                    correct: 0 },
+                { q: 'Who led the Israelites out of Egypt?', options: ['Aaron', 'Moses', 'Joshua', 'Joseph'],
+                    correct: 1 },
+                { q: 'How many plagues struck Egypt?', options: ['7', '9', '10', '12'], correct: 2 },
+                { q: 'Who parted the Red Sea by God\'s power?', options: ['Moses', 'Joshua', 'Aaron', 'Elijah'],
+                    correct: 0 },
+                { q: 'How many commandments did God give Moses?', options: ['10', '12', '7', '5'], correct: 0 },
+                { q: 'Who defeated the giant Goliath?', options: ['Saul', 'David', 'Samuel', 'Jonathan'],
+                    correct: 1 },
+                { q: 'Who was known for his great wisdom as king of Israel?', options: ['David', 'Saul',
+                        'Solomon', 'Rehoboam'
+                    ], correct: 2 },
+                { q: 'Who was sold into slavery by his brothers?', options: ['Benjamin', 'Joseph', 'Reuben',
+                        'Judah'
+                    ], correct: 1 },
+                { q: 'What did Joseph interpret for Pharaoh?', options: ['A letter', 'Dreams', 'A riddle', 'A song'],
+                    correct: 1 },
+                { q: 'Who was known as the strongest man in the Bible?', options: ['Goliath', 'Samson', 'Saul',
+                        'Boaz'
+                    ], correct: 1 },
+                { q: 'Whose hair was the source of his strength?', options: ['Samson', 'David', 'Elijah',
+                        'Gideon'
+                    ], correct: 0 },
+                { q: 'Who was thrown into a fiery furnace and survived?', options: ['Daniel',
+                        'Shadrach, Meshach, and Abednego', 'Job', 'Ezekiel'
+                    ], correct: 1 },
+                { q: 'Who was known for his patience through great suffering?', options: ['Job', 'Jonah',
+                        'Jeremiah', 'Hosea'
+                    ], correct: 0 },
+                { q: 'What was manna?', options: ['A type of tent', 'Bread from heaven', 'A musical instrument',
+                        'A city'
+                    ], correct: 1 },
+                { q: 'Who was John the Baptist\'s cousin?', options: ['Peter', 'Jesus', 'James', 'Andrew'],
+                    correct: 1 },
+                { q: 'How many days was Jesus in the tomb before rising?', options: ['1', '2', '3', '7'],
+                    correct: 2 },
+                { q: 'Who baptized Jesus?', options: ['Peter', 'John the Baptist', 'Andrew', 'Philip'],
+                    correct: 1 },
+                { q: 'Which disciple denied Jesus three times?', options: ['Judas', 'Peter', 'Thomas', 'John'],
+                    correct: 1 },
+                { q: 'Which disciple doubted Jesus\' resurrection until he saw the wounds?', options: ['Thomas',
+                        'Matthew', 'James', 'Bartholomew'
+                    ], correct: 0 },
+                { q: 'Who betrayed Jesus for thirty pieces of silver?', options: ['Peter', 'Judas Iscariot',
+                        'Thomas', 'Matthias'
+                    ], correct: 1 },
+                { q: 'What was Jesus\' first miracle?', options: ['Healing a blind man', 'Turning water into wine',
+                        'Walking on water', 'Feeding the 5000'
+                    ], correct: 1 },
+                { q: 'How many people did Jesus feed with five loaves and two fish?', options: ['500', '2,000',
+                        '5,000', '10,000'
+                    ], correct: 2 },
+                { q: 'On what mountain did Jesus deliver the Beatitudes?', options: ['Mount Sinai', 'Mount Zion',
+                        'The Mount of Olives', 'The Sermon on the Mount'
+                    ], correct: 3 },
+                { q: 'What is the first fruit of the Spirit listed in Galatians 5?', options: ['Joy', 'Love',
+                        'Peace', 'Patience'
+                    ], correct: 1 },
+                { q: 'Who wrote most of the New Testament letters (epistles)?', options: ['Peter', 'John', 'Paul',
+                        'James'
+                    ], correct: 2 },
+                { q: 'Who was struck blind on the road to Damascus?', options: ['Paul (Saul)', 'Barnabas',
+                        'Stephen', 'Timothy'
+                    ], correct: 0 },
+                { q: 'Who was the first Christian martyr?', options: ['Paul', 'Stephen', 'James', 'Peter'],
+                    correct: 1 },
+                { q: 'What does the word "gospel" mean?', options: ['Good news', 'Holy book', 'Sacred song',
+                        'Ancient law'
+                    ], correct: 0 },
+                { q: 'How many years did the Israelites wander in the wilderness?', options: ['10', '20', '40',
+                        '70'
+                    ], correct: 2 },
+                { q: 'What sign did God give Noah as a promise never to flood the earth again?', options: [
+                        'A dove', 'A rainbow', 'An olive branch', 'A star'
+                    ], correct: 1 },
+                { q: 'Who was the mother of Jesus?', options: ['Elizabeth', 'Martha', 'Mary', 'Anna'],
+                    correct: 2 },
+                { q: 'In what city was Jesus born?', options: ['Bethlehem', 'Nazareth', 'Jerusalem', 'Capernaum'],
+                    correct: 0 },
+                { q: 'Who was the king who ordered the massacre of infants in Bethlehem?', options: ['Herod',
+                        'Pilate', 'Caesar', 'Caiaphas'
+                    ], correct: 0 },
+                { q: 'What did God create on the first day?', options: ['Light', 'Animals', 'The sky',
+                        'Dry land'
+                    ], correct: 0 },
+                { q: 'Which book of the Bible is known as the "book of wisdom" written mostly by Solomon?',
+                    options: ['Psalms', 'Proverbs', 'Job', 'Ecclesiastes'], correct: 1 },
+                { q: 'Who is known as the "weeping prophet"?', options: ['Isaiah', 'Jeremiah', 'Ezekiel',
+                        'Daniel'
+                    ], correct: 1 },
+                { q: 'What was the name of the garden where Adam and Eve lived?', options: ['Gethsemane', 'Eden',
+                        'Canaan', 'Paradise'
+                    ], correct: 1 },
+                { q: 'Who did God ask Abraham to sacrifice as a test of faith?', options: ['Ishmael', 'Isaac',
+                        'Jacob', 'Esau'
+                    ], correct: 1 },
+                { q: 'What relation was Ruth to Naomi?', options: ['Sister', 'Daughter-in-law', 'Cousin',
+                        'Niece'
+                    ], correct: 1 },
+                { q: 'Who succeeded Moses as leader of Israel?', options: ['Caleb', 'Joshua', 'Aaron', 'Gideon'],
+                    correct: 1 },
+                { q: 'What instrument did David play to soothe King Saul?', options: ['Harp', 'Trumpet', 'Flute',
+                        'Lyre'
+                    ], correct: 0 },
+                { q: 'How many sons did Jacob have, who became the twelve tribes of Israel?', options: ['10',
+                        '11', '12', '13'
+                    ], correct: 2 },
+                { q: 'What was the name of the tower built by people trying to reach heaven?', options: [
+                        'Tower of Siloam', 'Tower of Babel', 'Tower of David', 'Tower of Babylon'
+                    ], correct: 1 },
             ];
 
             const encouragements = [
@@ -1011,12 +1200,36 @@ label { display:block; margin-bottom:6px; color:var(--text); font-weight:700; fo
             }
 
             // ============ BIBLE QUIZ ============
+            let quizBag = getData('quizBag', []);
+            let quizAnswered = getData('quizAnswered', 0);
+
+            function refillQuizBag() {
+                var indexes = quizQuestions.map(function(_, i) { return i; });
+                // Fisher-Yates shuffle so the whole pool is used before anything repeats.
+                for (var i = indexes.length - 1; i > 0; i--) {
+                    var j = Math.floor(Math.random() * (i + 1));
+                    var tmp = indexes[i]; indexes[i] = indexes[j]; indexes[j] = tmp;
+                }
+                quizBag = indexes;
+                setData('quizBag', quizBag);
+            }
+
             function startQuiz() {
-                var q = quizQuestions[Math.floor(Math.random() * quizQuestions.length)];
+                if (!quizBag || quizBag.length === 0) refillQuizBag();
+                var qIndex = quizBag.pop();
+                setData('quizBag', quizBag);
+                quizAnswered += 1;
+                setData('quizAnswered', quizAnswered);
+
+                var q = quizQuestions[qIndex];
                 currentQuizQ = q;
                 document.getElementById('quizQuestion').textContent = q.q;
+                document.getElementById('quizProgress').textContent =
+                    'Question ' + quizAnswered + ' \u00b7 ' + quizQuestions.length + ' in rotation';
                 document.getElementById('quizOptions').innerHTML = q.options.map(function(opt, i) {
-                    return '<button class="quiz-option" onclick="answerQuiz(' + i + ')">' + opt + '</button>';
+                    return '<button type="button" class="quiz-option" role="radio" aria-checked="false" onclick="answerQuiz(' + i +
+                        ')"><span class="tick" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="opt-label">' +
+                        sanitize(opt) + '</span></button>';
                 }).join('');
                 document.getElementById('quizFeedback').textContent = '';
                 document.getElementById('quizScore').textContent = quizScoreTotal;
@@ -1027,6 +1240,7 @@ label { display:block; margin-bottom:6px; color:var(--text); font-weight:700; fo
                 var buttons = document.querySelectorAll('.quiz-option');
                 buttons.forEach(function(btn, i) {
                     btn.disabled = true;
+                    btn.setAttribute('aria-checked', i === index ? 'true' : 'false');
                     if (i === currentQuizQ.correct) btn.classList.add('correct');
                     if (i === index && i !== currentQuizQ.correct) btn.classList.add('wrong');
                 });
