@@ -2,37 +2,16 @@
   "name": "Faith Journal",
   "short_name": "Faith Journal",
   "description": "A personal faith journal for prayer, Bible study, reflection, and spiritual growth.",
-  "start_url": "/",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#fdfbf7",
   "theme_color": "#1a365d",
   "orientation": "any",
   "icons": [
     {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "favicon-32.png",
-      "sizes": "32x32",
-      "type": "image/png"
-    },
-    {
-      "src": "favicon-16.png",
-      "sizes": "16x16",
-      "type": "image/png"
-    },
-    {
-      "src": "apple-touch-icon.png",
-      "sizes": "180x180",
+      "src": "https://raw.githubusercontent.com/websolutionsza/Faith-Journal/refs/heads/main/WhatsApp%20Image%202026-06-19%20at%2010.59.51.png",
+      "sizes": "any",
       "type": "image/png",
       "purpose": "any maskable"
     }
