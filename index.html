@@ -140,8 +140,6 @@ label { display:block; margin-bottom:6px; color:var(--text); font-weight:700; fo
   inset: 0;
   z-index: 10000;
   display: flex;
-  align-items: center;
-  justify-content: center;
   padding: calc(20px + var(--safe-top)) calc(20px + var(--safe-right)) calc(20px + var(--safe-bottom)) calc(20px + var(--safe-left));
   background: radial-gradient(circle at 10% 0%, rgba(216,188,131,.20), transparent 30rem), radial-gradient(circle at 90% 100%, rgba(23,54,95,.10), transparent 30rem), var(--bg);
   overflow-y: auto;
@@ -155,6 +153,7 @@ label { display:block; margin-bottom:6px; color:var(--text); font-weight:700; fo
   isolation: isolate;
   overflow: hidden;
   width: min(100%, 440px);
+  margin: auto; /* Fix for small screens to ensure button is never clipped */
   padding: clamp(24px, 4vw, 36px);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -532,14 +531,21 @@ label { display:block; margin-bottom:6px; color:var(--text); font-weight:700; fo
         const SUPABASE_URL = 'https://qthgoeqeuphveqbzmzyy.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_KXiMk_vivnUkjbavAcxO_g__c_gGspR';
 
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        let supabase = null;
+        if (window.supabase && typeof window.supabase.createClient === 'function') {
+            supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        } else {
+            console.error('Supabase SDK failed to load.');
+        }
 
         // Check active session on load
         document.addEventListener('DOMContentLoaded', async () => {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session) {
-                document.getElementById('authOverlay').classList.add('hidden');
-                updateAccountUI(session.user);
+            if (supabase) {
+                const { data: { session } } = await supabase.auth.getSession();
+                if (session) {
+                    document.getElementById('authOverlay').classList.add('hidden');
+                    updateAccountUI(session.user);
+                }
             }
 
             // Hide splash screen smoothly after load
@@ -559,19 +565,27 @@ label { display:block; margin-bottom:6px; color:var(--text); font-weight:700; fo
             const errorEl = document.getElementById('loginError');
             const loginBtn = document.getElementById('loginBtn');
             errorEl.textContent = '';
+
+            if (!supabase) {
+                errorEl.textContent = "Authentication service is unavailable. Please refresh the page.";
+                return;
+            }
+
             loginBtn.disabled = true;
             loginBtn.innerHTML = '<span class="auth-loading"></span> Logging in...';
 
-            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-            
-            loginBtn.disabled = false;
-            loginBtn.textContent = 'Log In';
+            try {
+                const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+                
+                if (error) throw error;
 
-            if (error) {
-                errorEl.textContent = error.message;
-            } else {
                 document.getElementById('authOverlay').classList.add('hidden');
                 updateAccountUI(data.user);
+            } catch (err) {
+                errorEl.textContent = err.message || "Failed to log in.";
+            } finally {
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Log In';
             }
         }
 
@@ -580,50 +594,89 @@ label { display:block; margin-bottom:6px; color:var(--text); font-weight:700; fo
             event.preventDefault();
             const email = document.getElementById('signupEmail').value;
             const password = document.getElementById('signupPassword').value;
-            const confirm = document.getElementById('signupConfirm').value;
+            const confirmPassword = document.getElementById('signupConfirm').value;
             const errorEl = document.getElementById('signupError');
             const signupBtn = document.getElementById('signupBtn');
+            
             errorEl.textContent = '';
             errorEl.className = 'auth-error';
 
-            if (password !== confirm) {
+            if (password !== confirmPassword) {
                 errorEl.textContent = "Passwords do not match.";
+                return;
+            }
+
+            if (!supabase) {
+                errorEl.textContent = "Authentication service is unavailable. Please refresh the page.";
                 return;
             }
 
             signupBtn.disabled = true;
             signupBtn.innerHTML = '<span class="auth-loading"></span> Creating account...';
 
-            const { data, error } = await supabase.auth.signUp({ email, password });
+            try {
+                const { data, error } = await supabase.auth.signUp({ email, password });
 
-            signupBtn.disabled = false;
-            signupBtn.textContent = 'Create Account';
+                if (error) throw error;
 
-            if (error) {
-                errorEl.textContent = error.message;
-            } else {
-                errorEl.classList.add('auth-success');
-                errorEl.textContent = "Account created successfully! You can now log in.";
+                if (data.session) {
+                    // Email confirmation disabled - auto-login
+                    document.getElementById('authOverlay').classList.add('hidden');
+                    updateAccountUI(data.user);
+                } else {
+                    // Email confirmation required
+                    errorEl.classList.add('auth-success');
+                    errorEl.textContent = "Account created successfully! You can now log in.";
+                    // Optionally switch back to login tab
+                    setTimeout(() => switchAuthTab('login'), 2000);
+                }
+            } catch (err) {
+                errorEl.textContent = err.message || "An error occurred during sign up.";
+            } finally {
+                // Ensure the button is ALWAYS re-enabled and clickable, even if an error occurs
+                signupBtn.disabled = false;
+                signupBtn.textContent = 'Create Account';
             }
         }
 
         // Handle Logout
         async function handleLogout() {
-            await supabase.auth.signOut();
+            if (supabase) {
+                await supabase.auth.signOut();
+            }
             document.getElementById('authOverlay').classList.remove('hidden');
+            // Clear out user info
+            const emailDisplay = document.getElementById('accountEmailDisplay');
+            if (emailDisplay) emailDisplay.textContent = 'Loading...';
         }
 
         function updateAccountUI(user) {
             const emailDisplay = document.getElementById('accountEmailDisplay');
-            if (emailDisplay) emailDisplay.textContent = user.email;
+            if (emailDisplay && user) {
+                emailDisplay.textContent = user.email;
+            }
         }
 
         function switchAuthTab(tab) {
             const isLogin = tab === 'login';
+            
+            // Toggle active state on the tab buttons
             document.getElementById('tabLogin').classList.toggle('active', isLogin);
             document.getElementById('tabSignup').classList.toggle('active', !isLogin);
+            
+            // Update ARIA accessibility attributes
+            document.getElementById('tabLogin').setAttribute('aria-selected', isLogin);
+            document.getElementById('tabSignup').setAttribute('aria-selected', !isLogin);
+            
+            // Toggle visibility of the forms
             document.getElementById('loginForm').classList.toggle('hidden', !isLogin);
             document.getElementById('signupForm').classList.toggle('hidden', isLogin);
+            
+            // Clear any leftover error messages when switching tabs
+            const loginError = document.getElementById('loginError');
+            const signupError = document.getElementById('signupError');
+            if (loginError) loginError.textContent = '';
+            if (signupError) signupError.textContent = '';
         }
 
         // Simple Tab Navigation Switcher
